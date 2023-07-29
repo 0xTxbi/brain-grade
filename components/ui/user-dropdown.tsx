@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import {
   DropdownMenu,
@@ -13,31 +15,20 @@ import {
   DropdownMenuSubContent,
   DropdownMenuShortcut,
 } from '@/components/ui/dropdown-menu';
-import {Switch} from '@/components/ui/switch';
-import {Label} from '@/components/ui/label'
 
-import {
-  User,
-  Settings,
-  Users,
-  UserPlus,
-  Mail,
-  MessageSquare,
-  PlusCircle,
-  Plus,
-  Github,
-  LogOut,
-  Moon,
-  Sun,
-} from 'lucide-react';
+import { User, Settings, PlusCircle, LogOut, Moon, Sun, Tv2 } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useTheme } from 'next-themes';
 
 interface UserDropDownProps {
   avatarSrc: string;
 }
 
 const UserDropDown: React.FC<UserDropDownProps> = ({ avatarSrc }) => {
+
+    const {setTheme} = useTheme()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -65,14 +56,22 @@ const UserDropDown: React.FC<UserDropDownProps> = ({ avatarSrc }) => {
         <DropdownMenuGroup>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
-              <Sun className="mr-2 h-4 w-4" />
+              <Tv2 className="mr-2 h-4 w-4" />
               <span>Display Settings</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                <DropdownMenuItem>
-                  <Label htmlFor='dark-mode'>Dark Mode</Label>
-                  <Switch id='dark-mode'/>
+                <DropdownMenuItem onClick={() => setTheme('light')}>
+                <Sun className="mr-2 h-4 w-4" />
+            <span>Light</span>   
+                </DropdownMenuItem>    
+                <DropdownMenuItem onClick={() => setTheme('dark')}>
+                <Moon className="mr-2 h-4 w-4" />
+            <span>Dark</span>
+                </DropdownMenuItem>    
+                <DropdownMenuItem onClick={() => setTheme('system')}>
+                <Tv2 className="mr-2 h-4 w-4" />
+            <span>System</span>
                 </DropdownMenuItem>               
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
