@@ -14,6 +14,7 @@ import { Heading } from "@/components/ui/typography/heading";
 import UserDropDown from "@/components/ui/user-dropdown";
 import { MainNav } from "@/components/ui/main-navigation";
 import Overview from "@/components/ui/dashboard-sections/overview";
+import Courses from "@/components/ui/dashboard-sections/my-courses";
 
 export const metadata: Metadata = {
 	title: "Dashboard",
@@ -49,7 +50,7 @@ export default function DashboardPage() {
 				<div className="flex-1 space-y-4 p-8 pt-6">
 					<div className="flex items-center justify-between space-y-2">
 						<Heading level={2}>
-							Welcome, txbi 👋🏽
+							wagwan, txbi 👋🏽
 						</Heading>
 						<div className="flex items-center space-x-2">
 							<UserDropDown avatarSrc="https://avatars.githubusercontent.com/u/46839250?v=4" />
@@ -99,7 +100,9 @@ export default function DashboardPage() {
 						<TabsContent
 							value="my-courses"
 							className="space-y-4"
-						></TabsContent>
+						>
+							<Courses />
+						</TabsContent>
 					</Tabs>
 				</div>
 			</div>
