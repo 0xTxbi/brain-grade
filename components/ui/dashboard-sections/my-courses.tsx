@@ -44,8 +44,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderIcon } from "lucide-react";
 import { addCourse } from "@/lib/requests";
+import { useGetCourses } from "@/lib/hooks/useGetCourses";
 
 const Courses: React.FC = () => {
+	// user's token
+	const token = "";
+
+	// obtain courses
+	const { courses, isLoading, isError } = useGetCourses(token);
+
 	// State to handle form submission status
 	const [submitting, setSubmitting] = useState(false);
 	const [submissionError, setSubmissionError] = useState("");
@@ -104,7 +111,9 @@ const Courses: React.FC = () => {
 						</CardTitle>
 					</CardHeader>
 					<CardContent>
-						you haven't added any course yet
+						{courses?.length < 1
+							? "you haven't added any course yet"
+							: "your courses"}
 					</CardContent>
 				</Card>
 				<Dialog>
