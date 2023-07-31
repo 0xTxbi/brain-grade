@@ -1,6 +1,5 @@
 "use client";
-
-import React from "react";
+import React, { useState } from "react";
 
 import {
 	Card,
@@ -23,9 +22,7 @@ import {
 import {
 	Select,
 	SelectContent,
-	SelectGroup,
 	SelectItem,
-	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
@@ -33,7 +30,6 @@ import {
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -41,47 +37,62 @@ import {
 } from "@/components/ui/form";
 
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoaderIcon } from "lucide-react";
+import { addCourse } from "@/lib/requests";
 
 const Courses: React.FC = () => {
+	// State to handle form submission status
+	const [submitting, setSubmitting] = useState(false);
+	const [submissionError, setSubmissionError] = useState("");
+
 	// form's schema
-	const formSchema = z.object({
+	const courseSchema = z.object({
 		courseCode: z.string(),
 		title: z.string(),
-		grade: z
-			.number()
-			.min(0)
-			.max(5)
-			.refine((value) => Number.isInteger(value * 100), {
-				message: "Grade must have 2 decimal places.",
-			}),
-		units: z.number().min(1).max(6).int(),
-		year: z.number().min(1).max(5).int(),
-		semester: z.enum(["rain", "harmattan"]),
+		grade: z.string().transform((val) => parseFloat(val)),
+		units: z.string().transform((val) => parseFloat(val)),
+		year: z.number(),
+		semester: z.number(),
 	});
 
-	// 1. Define your form.
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
+	const form = useForm<z.infer<typeof courseSchema>>({
+		resolver: zodResolver(courseSchema),
 		defaultValues: {
 			courseCode: "",
 			title: "",
-			grade: 0.0,
+			grade: 0,
 			units: 1,
 			year: 1,
-			semester: "rain",
+			semester: 1,
 		},
 	});
 
-	// 2. Define a submit handler.
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.log(values);
-	}
+	const onSubmit = async (values: z.infer<typeof courseSchema>) => {
+		setSubmitting(true);
+		setSubmissionError("");
+
+		try {
+			const parsedValues = {
+				...values,
+				units: Number(values.units),
+				year: Number(values.year),
+			};
+
+			await addCourse(parsedValues);
+
+			console.log("Form data sent successfully!");
+		} catch (error: any) {
+			setSubmissionError(error.message);
+			console.error("Form submission error:", error);
+		} finally {
+			setSubmitting(false);
+		}
+	};
 
 	return (
 		<>
@@ -185,6 +196,7 @@ const Courses: React.FC = () => {
 											</FormItem>
 										)}
 									/>
+
 									{/* Title */}
 									<FormField
 										control={
@@ -228,7 +240,6 @@ const Courses: React.FC = () => {
 													<Input
 														type="number"
 														id="grade"
-														placeholder="70"
 														className="col-span-3"
 														{...field}
 													/>
@@ -270,7 +281,7 @@ const Courses: React.FC = () => {
 										control={
 											form.control
 										}
-										name="units"
+										name="year"
 										render={({
 											field,
 										}) => (
@@ -292,6 +303,7 @@ const Courses: React.FC = () => {
 										)}
 									/>
 
+									{/* Semester */}
 									<FormField
 										control={
 											form.control
@@ -315,10 +327,10 @@ const Courses: React.FC = () => {
 														</SelectTrigger>
 													</FormControl>
 													<SelectContent>
-														<SelectItem value="Rain">
+														<SelectItem value="1">
 															Rain
 														</SelectItem>
-														<SelectItem value="Harmattan">
+														<SelectItem value="2">
 															Harmattan
 														</SelectItem>
 													</SelectContent>
@@ -329,9 +341,24 @@ const Courses: React.FC = () => {
 									/>
 								</div>
 								<DialogFooter>
-									<Button type="submit">
-										Add
-										Course
+									<Button
+										type="submit"
+										disabled={
+											submitting
+										}
+									>
+										{submitting ? (
+											<>
+												<LoaderIcon />
+												Adding
+												Course
+											</>
+										) : (
+											<>
+												Add
+												Course
+											</>
+										)}
 									</Button>
 								</DialogFooter>
 							</form>

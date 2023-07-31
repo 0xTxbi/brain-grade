@@ -15,7 +15,7 @@ const Overview: React.FC = () => {
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 						<CardTitle className="text-sm font-medium">
-							Current GPA
+							Cumulative GPA
 						</CardTitle>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ const Overview: React.FC = () => {
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 						<CardTitle className="text-sm font-medium">
-							Cumulative GPA
+							Total Grade Points
 						</CardTitle>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +109,7 @@ const Overview: React.FC = () => {
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 						<CardTitle className="text-sm font-medium">
-							Courses in Progress
+							Total Courses
 						</CardTitle>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +138,7 @@ const Overview: React.FC = () => {
 				<Card className="col-span-4">
 					<CardHeader>
 						<CardTitle>
-							Upcoming Deadlines
+							Current Class
 						</CardTitle>
 					</CardHeader>
 					<CardContent className="pl-2">
@@ -147,9 +147,7 @@ const Overview: React.FC = () => {
 				</Card>
 				<Card className="col-span-3">
 					<CardHeader>
-						<CardTitle>
-							GPA Progress Chart
-						</CardTitle>
+						<CardTitle>Remark</CardTitle>
 						<CardDescription>
 							You made tremendous
 							progress over the past
