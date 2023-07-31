@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 import {
@@ -28,11 +30,59 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 
+import {
+	Form,
+	FormControl,
+	FormDescription,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 const Courses: React.FC = () => {
+	// form's schema
+	const formSchema = z.object({
+		courseCode: z.string(),
+		title: z.string(),
+		grade: z
+			.number()
+			.min(0)
+			.max(5)
+			.refine((value) => Number.isInteger(value * 100), {
+				message: "Grade must have 2 decimal places.",
+			}),
+		units: z.number().min(1).max(6).int(),
+		year: z.number().min(1).max(5).int(),
+		semester: z.enum(["rain", "harmattan"]),
+	});
+
+	// 1. Define your form.
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			courseCode: "",
+			title: "",
+			grade: 0.0,
+			units: 1,
+			year: 1,
+			semester: "rain",
+		},
+	});
+
+	// 2. Define a submit handler.
+	function onSubmit(values: z.infer<typeof formSchema>) {
+		console.log(values);
+	}
+
 	return (
 		<>
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
@@ -48,7 +98,7 @@ const Courses: React.FC = () => {
 				</Card>
 				<Dialog>
 					<DialogTrigger asChild>
-						<Card className="col-span-3">
+						<Card className="col-span-3 cursor-pointer">
 							<CardHeader>
 								<CardTitle>
 									Add
@@ -78,137 +128,214 @@ const Courses: React.FC = () => {
 						</Card>
 					</DialogTrigger>
 					<DialogContent className="sm:max-w-[625px]">
-						<DialogHeader>
-							<DialogTitle>
-								Add a Course
-							</DialogTitle>
-							<DialogDescription>
-								Easily add a new
-								course to the
-								current semester
-								by providing the
-								following
-								details:
-							</DialogDescription>
-						</DialogHeader>
-						<div className="grid gap-4 py-4">
-							<div className="grid grid-cols-4 items-center gap-4">
-								<Label
-									htmlFor="name"
-									className="text-right"
-								>
-									Course
-									Code
-								</Label>
-								<Input
-									id="name"
-									placeholder="CSC 111"
-									className="col-span-3"
-								/>
-							</div>
-							<div className="grid grid-cols-4 items-center gap-4">
-								<Label
-									htmlFor="name"
-									className="text-right"
-								>
-									Title
-								</Label>
-								<Input
-									id="name"
-									placeholder="Introduction to Computer Science"
-									className="col-span-3"
-								/>
-							</div>
-							<div className="grid grid-cols-4 items-center gap-4">
-								<Label
-									htmlFor="name"
-									className="text-right"
-								>
-									Grade
-								</Label>
-								<Input
-									type="number"
-									id="name"
-									placeholder="70"
-									className="col-span-3"
-								/>
-							</div>
-							<div className="grid grid-cols-4 items-center gap-4">
-								<Label
-									htmlFor="username"
-									className="text-right"
-								>
-									Units
-								</Label>
-								<Input
-									type="number"
-									id="username"
-									placeholder="3"
-									className="col-span-3"
-								/>
-							</div>
-							<div className="grid grid-cols-4 items-center gap-4">
-								<Label
-									htmlFor="username"
-									className="text-right"
-								>
-									Year
-								</Label>
+						<Form {...form}>
+							<form
+								onSubmit={form.handleSubmit(
+									onSubmit
+								)}
+								className="space-y-8"
+							>
+								<DialogHeader>
+									<DialogTitle>
+										Add
+										a
+										Course
+									</DialogTitle>
+									<DialogDescription>
+										Easily
+										add
+										a
+										new
+										course
+										to
+										the
+										current
+										semester
+										by
+										providing
+										the
+										following
+										details:
+									</DialogDescription>
+								</DialogHeader>
+								<div className="grid gap-4 py-4">
+									{/* Course code */}
+									<FormField
+										control={
+											form.control
+										}
+										name="courseCode"
+										render={({
+											field,
+										}) => (
+											<FormItem>
+												<FormLabel>
+													Course
+													Code
+												</FormLabel>
+												<FormControl>
+													<Input
+														id="name"
+														placeholder="CSC 111"
+														className="col-span-3"
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									{/* Title */}
+									<FormField
+										control={
+											form.control
+										}
+										name="title"
+										render={({
+											field,
+										}) => (
+											<FormItem>
+												<FormLabel>
+													Title
+												</FormLabel>
+												<FormControl>
+													<Input
+														id="name"
+														placeholder="Introduction to Computer Science"
+														className="col-span-3"
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
 
-								<Select>
-									<SelectTrigger>
-										<SelectValue placeholder="Select a year" />
-									</SelectTrigger>
-									<SelectContent>
-										<SelectGroup>
-											<SelectItem value="1">
-												1
-											</SelectItem>
-											<SelectItem value="2">
-												2
-											</SelectItem>
-											<SelectItem value="3">
-												3
-											</SelectItem>
-											<SelectItem value="4">
-												4
-											</SelectItem>
-											<SelectItem value="5">
-												5
-											</SelectItem>
-										</SelectGroup>
-									</SelectContent>
-								</Select>
-							</div>
-							<div className="grid grid-cols-4 items-center gap-4">
-								<Label
-									htmlFor="username"
-									className="text-right"
-								>
-									Semester
-								</Label>
-								<Select>
-									<SelectTrigger className="w-[300px]">
-										<SelectValue placeholder="Select semester" />
-									</SelectTrigger>
-									<SelectContent>
-										<SelectGroup>
-											<SelectItem value="rain">
-												Rain
-											</SelectItem>
-											<SelectItem value="harmattan">
-												Harmattan
-											</SelectItem>
-										</SelectGroup>
-									</SelectContent>
-								</Select>
-							</div>
-						</div>
-						<DialogFooter>
-							<Button type="submit">
-								Add Course
-							</Button>
-						</DialogFooter>
+									{/* Grade */}
+									<FormField
+										control={
+											form.control
+										}
+										name="grade"
+										render={({
+											field,
+										}) => (
+											<FormItem>
+												<FormLabel>
+													Grade
+												</FormLabel>
+												<FormControl>
+													<Input
+														type="number"
+														id="grade"
+														placeholder="70"
+														className="col-span-3"
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+
+									{/* Units */}
+									<FormField
+										control={
+											form.control
+										}
+										name="units"
+										render={({
+											field,
+										}) => (
+											<FormItem>
+												<FormLabel>
+													Units
+												</FormLabel>
+												<FormControl>
+													<Input
+														type="number"
+														id="units"
+														placeholder="3"
+														className="col-span-3"
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+
+									{/* Year */}
+									<FormField
+										control={
+											form.control
+										}
+										name="units"
+										render={({
+											field,
+										}) => (
+											<FormItem>
+												<FormLabel>
+													Year
+												</FormLabel>
+												<FormControl>
+													<Input
+														type="number"
+														id="year"
+														placeholder="1"
+														className="col-span-3"
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+
+									<FormField
+										control={
+											form.control
+										}
+										name="semester"
+										render={({
+											field,
+										}) => (
+											<FormItem>
+												<FormLabel>
+													Semester
+												</FormLabel>
+												<Select
+													onValueChange={
+														field.onChange
+													}
+												>
+													<FormControl>
+														<SelectTrigger>
+															<SelectValue placeholder="Select semester" />
+														</SelectTrigger>
+													</FormControl>
+													<SelectContent>
+														<SelectItem value="Rain">
+															Rain
+														</SelectItem>
+														<SelectItem value="Harmattan">
+															Harmattan
+														</SelectItem>
+													</SelectContent>
+												</Select>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
+								<DialogFooter>
+									<Button type="submit">
+										Add
+										Course
+									</Button>
+								</DialogFooter>
+							</form>
+						</Form>
 					</DialogContent>
 				</Dialog>
 			</div>
