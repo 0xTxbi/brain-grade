@@ -2,13 +2,6 @@ import { Metadata } from "next";
 import Image from "next/image";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// import { CalendarDateRangePicker } from "@/app/examples/dashboard/components/date-range-picker"
-// import { MainNav } from "@/app/examples/dashboard/components/main-nav"
-// import { Overview } from "@/app/examples/dashboard/components/overview"
-// import { RecentSales } from "@/app/examples/dashboard/components/recent-sales"
-// import { Search } from "@/app/examples/dashboard/components/search"
-// import TeamSwitcher from "@/app/examples/dashboard/components/team-switcher"
-// import { UserNav } from "@/app/examples/dashboard/components/user-nav"
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/typography/heading";
 import UserDropDown from "@/components/ui/user-dropdown";

@@ -1,5 +1,53 @@
 const endpoint = "https://cgpa-calculator-api.onrender.com/api/v1";
 
+// Register new user
+export async function registerUser(data: any) {
+	const url = `${endpoint}/users`;
+
+	try {
+		const response = await fetch(url, {
+			method: "POST",
+			headers: {
+				"Content-Type": "applicaiton/json",
+			},
+			body: JSON.stringify(data),
+		});
+
+		if (!response.ok) {
+			throw new Error("Failed to register user.");
+		}
+
+		console.log(response);
+		return response.json();
+	} catch (error) {
+		throw new Error("Failed to create user");
+	}
+}
+
+// Authenticate existing user
+export async function authenticateUser(data: any) {
+	const url = `${endpoint}/users/login`;
+
+	try {
+		const response = await fetch(url, {
+			method: "POST",
+			headers: {
+				"Content-Type": "applicaiton/json",
+			},
+			body: JSON.stringify(data),
+		});
+
+		if (!response.ok) {
+			throw new Error("Failed to add the course.");
+		}
+
+		console.log(response);
+		return response.json();
+	} catch (error) {
+		throw new Error("Failed to create user");
+	}
+}
+
 // Add Courses
 export async function addCourse(data: any) {
 	const url = `${endpoint}/cgpa-calculator/courses/new`;

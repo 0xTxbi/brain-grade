@@ -1,63 +1,95 @@
 "use client";
-
 import * as React from "react";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { GithubIcon, MailIcon } from "lucide-react";
-import Link from "next/link";
+import { GithubIcon } from "lucide-react";
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import RegisterForm from "./RegisterForm";
+import LoginForm from "./LoginForm";
 
-export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+type FormMode = "login" | "register";
+
+type UserFormValues = {
+	username: string;
+	email: string;
+	password: string;
+};
+
+interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
+	mode: FormMode;
+}
+
+export function UserAuthForm({ className, mode, ...props }: UserAuthFormProps) {
+	const userSchema =
+		mode === "login"
+			? z.object({
+					email: z.string(),
+					password: z.string(),
+			  })
+			: z.object({
+					username: z.string(),
+					email: z.string(),
+					password: z.string(),
+			  });
+
+	const defaultValues =
+		mode === "login"
+			? {
+					email: "",
+					password: "",
+			  }
+			: {
+					username: "",
+					email: "",
+					password: "",
+			  };
+
+	const form = useForm<UserFormValues>({
+		resolver: zodResolver(userSchema),
+		defaultValues,
+	});
+
+	const [submitting, setSubmitting] = React.useState(false);
+	const [submissionError, setSubmissionError] = React.useState("");
+
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-	async function onSubmit(event: React.SyntheticEvent) {
-		event.preventDefault();
-		setIsLoading(true);
+	const onSubmit = async (values: z.infer<typeof userSchema>) => {
+		setSubmitting(true);
+		setSubmissionError("");
 
-		setTimeout(() => {
-			setIsLoading(false);
-		}, 3000);
-	}
+		try {
+			const parsedValues = {
+				...values,
+			};
+
+			console.log("Form values submitted:", parsedValues);
+
+			console.log("Form data sent successfully!");
+		} catch (error: any) {
+			setSubmissionError(error.message);
+			console.error("Form submission error:", error);
+		} finally {
+			setSubmitting(false);
+		}
+	};
 
 	return (
 		<div
 			className={cn("grid gap-6", className)}
 			{...props}
 		>
-			<form onSubmit={onSubmit}>
-				<div className="grid gap-2">
-					<div className="grid gap-1">
-						<Label
-							className="sr-only"
-							htmlFor="email"
-						>
-							Email
-						</Label>
-						<Input
-							id="email"
-							placeholder="name@example.com"
-							type="email"
-							autoCapitalize="none"
-							autoComplete="email"
-							autoCorrect="off"
-							disabled={isLoading}
-						/>
-					</div>
-					<Button
-						asChild
-						disabled={isLoading}
-					>
-						<Link href="/dashboard">
-							<MailIcon className="mr-2 h-4 w-4" />
-							Sign In with Email
-						</Link>
-					</Button>
-				</div>
-			</form>
+			<div className="grid gap-4 py-4">
+				{mode === "register" ? (
+					<RegisterForm />
+				) : (
+					<LoginForm />
+				)}
+			</div>
+
 			<div className="relative">
 				<div className="absolute inset-0 flex items-center">
 					<span className="w-full border-t" />
@@ -71,7 +103,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 			<Button
 				variant="outline"
 				type="button"
-				disabled={isLoading}
 			>
 				<GithubIcon className="mr-2 h-4 w-4" />
 				Github
