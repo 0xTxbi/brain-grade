@@ -28,7 +28,7 @@ interface RegisterFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 	const registerSchema = z.object({
 		username: z.string(),
-		email: z.string(),
+		email: z.string().email(),
 		password: z.string(),
 	});
 
@@ -43,7 +43,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 
 	const [submitting, setSubmitting] = React.useState(false);
 	const [submissionError, setSubmissionError] = React.useState("");
-	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
 	console.log(submitting);
 
@@ -64,6 +63,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 			const response = await registerUser(parsedValues);
 
 			console.log("Form data sent successfully!", response);
+
+			if (response.status_code === 200) {
+				// Redirect to the /dashboard route
+				window.location.href = "/dashboard";
+			}
 		} catch (error: any) {
 			setSubmissionError(error.message);
 			console.error("Form submission error:", error);
@@ -93,7 +97,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 									</FormLabel>
 									<FormControl>
 										<Input
-											id="name"
+											id="username"
+											type="text"
 											placeholder="student"
 											className="col-span-3"
 											{...field}
@@ -115,7 +120,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 									</FormLabel>
 									<FormControl>
 										<Input
-											id="name"
+											id="email"
+											type="email"
 											placeholder="student@email.com"
 											className="col-span-3"
 											{...field}
@@ -137,7 +143,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 									<FormControl>
 										<Input
 											type="password"
-											id="grade"
+											id="password"
 											className="col-span-3"
 											{...field}
 										/>

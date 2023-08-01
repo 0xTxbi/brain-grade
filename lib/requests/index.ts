@@ -8,7 +8,7 @@ export async function registerUser(data: any) {
 		const response = await fetch(url, {
 			method: "POST",
 			headers: {
-				"Content-Type": "applicaiton/json",
+				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(data),
 		});
@@ -32,7 +32,7 @@ export async function authenticateUser(data: any) {
 		const response = await fetch(url, {
 			method: "POST",
 			headers: {
-				"Content-Type": "applicaiton/json",
+				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(data),
 		});

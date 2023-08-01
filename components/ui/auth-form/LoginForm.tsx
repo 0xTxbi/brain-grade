@@ -26,7 +26,7 @@ interface LoginFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const LoginForm: React.FC<LoginFormProps> = ({ className, ...props }) => {
 	const loginSchema = z.object({
-		email: z.string(),
+		email: z.string().email(),
 		password: z.string(),
 	});
 
@@ -58,6 +58,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ className, ...props }) => {
 			const response = await authenticateUser(parsedValues);
 
 			console.log("Form data sent successfully!", response);
+
+			if (response.status_code === 200) {
+				// Redirect to the /dashboard route
+				window.location.href = "/dashboard";
+			}
 		} catch (error: any) {
 			setSubmissionError(error.message);
 			console.error("Form submission error:", error);
@@ -88,7 +93,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ className, ...props }) => {
 									</FormLabel>
 									<FormControl>
 										<Input
-											id="name"
+											id="email"
+											type="email"
 											placeholder="student@email.com"
 											className="col-span-3"
 											{...field}
@@ -110,7 +116,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ className, ...props }) => {
 									<FormControl>
 										<Input
 											type="password"
-											id="grade"
+											id="password"
 											className="col-span-3"
 											{...field}
 										/>

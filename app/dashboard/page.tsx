@@ -1,3 +1,5 @@
+"use client";
+
 import { Metadata } from "next";
 import Image from "next/image";
 
@@ -8,13 +10,13 @@ import UserDropDown from "@/components/ui/user-dropdown";
 import { MainNav } from "@/components/ui/main-navigation";
 import Overview from "@/components/ui/dashboard-sections/overview";
 import Courses from "@/components/ui/dashboard-sections/my-courses";
-
-export const metadata: Metadata = {
-	title: "Dashboard",
-	description: "BrainGrade's Dashboard",
-};
+import { useCurrentUser } from "@/lib/hooks/useCurrentUser";
 
 export default function DashboardPage() {
+	const { user, isLoading, isError } = useCurrentUser();
+
+	console.log(user, isLoading, isError);
+
 	return (
 		<>
 			<div className="md:hidden">
