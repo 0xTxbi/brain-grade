@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 
 import {
 	Dialog,
@@ -11,13 +11,14 @@ import {
 
 import { Button } from "@/components/ui/button";
 
-import { LoaderIcon, Sigma, Trash } from "lucide-react";
+import { Sigma } from "lucide-react";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { useCalculateGPA } from "@/lib/hooks/useCalculateGPA";
 
 const CalculateGPA: React.FC = () => {
-	// State to handle form submission status
-	const [submitting, setSubmitting] = useState(false);
-	const [submissionError, setSubmissionError] = useState("");
+	const { gpa, isLoading, isError } = useCalculateGPA();
+
+	console.log(gpa);
 
 	return (
 		<>
@@ -38,29 +39,9 @@ const CalculateGPA: React.FC = () => {
 						provided inputs. hang in tight.
 					</DialogDescription>
 					<DialogFooter>
-						{/* <Button
-							className="bg-red-500"
-							onClick={() =>
-								// deleteCourse('hey', course.id)
-								console.log(
-									"deleting"
-								)
-							}
-							disabled={submitting}
-						>
-							{submitting ? (
-								<>
-									<LoaderIcon className="mr-2 h-4 w-4" />
-									Deleting
-									Course
-								</>
-							) : (
-								<>
-									Delete
-									Course
-								</>
-							)}
-						</Button> */}
+						<Button className="bg-red-500">
+							Close
+						</Button>
 					</DialogFooter>
 				</DialogContent>
 			</Dialog>

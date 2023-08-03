@@ -5,14 +5,15 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import UpdateCourse from "../course-actions/update-course";
 import DeleteCourse from "../course-actions/delete-course";
+import ViewCourse from "../course-actions/view-course";
 
 // define the shape of our data.
 export type Courses = {
-	id: string;
+	_id: string;
 	code: string;
 	title: string;
 	grade: number;
-	units: number;
+	unit_credit: number;
 };
 
 export const columns: ColumnDef<Courses>[] = [
@@ -40,7 +41,7 @@ export const columns: ColumnDef<Courses>[] = [
 		},
 	},
 	{
-		accessorKey: "units",
+		accessorKey: "unit_credit",
 		header: ({ column }) => {
 			return (
 				<Button
@@ -65,6 +66,7 @@ export const columns: ColumnDef<Courses>[] = [
 
 			return (
 				<div className="flex space-x-4">
+					<ViewCourse course={course} />
 					<UpdateCourse course={course} />
 					<DeleteCourse course={course} />
 				</div>

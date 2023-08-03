@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setCookie } from "cookies-next";
-import { NextRouter } from "next/router";
+import { getCookie } from "cookies-next";
 
 // Register new user
 export async function registerUser(data: any) {
@@ -52,19 +52,24 @@ export async function addCourse(data: any) {
 	const url = `${process.env.NEXT_PUBLIC_API_URL}/cgpa-calculator/courses/new`;
 
 	try {
-		const response = await fetch(url, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		});
+		const token = getCookie("userToken") as string | undefined;
 
-		if (!response.ok) {
-			throw new Error("Failed to add the course.");
+		if (!token) {
+			throw new Error(
+				"User token not available. Please log in."
+			);
 		}
 
-		return response.json();
+		const response = await axios.post(url, data, {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		});
+
+		console.log(response);
+
+		return response.data.payload;
 	} catch (error) {
 		throw new Error(
 			"Failed to add the course. Please try again later."
@@ -96,48 +101,54 @@ export async function getCourses(token: string) {
 	}
 }
 
-// Update course
-export async function updateCourse(token: string, id: string, title: string) {
-	const url = `${process.env.NEXT_PUBLIC_API_URLdpoint}cgpa-calculator/courses/:${id}`;
+// Update Course
+export async function updateCourse(courseId: string, title: string) {
+	const url = `${process.env.NEXT_PUBLIC_API_URL}/cgpa-calculator/courses/${courseId}`;
 
 	try {
-		const response = await fetch(url, {
-			method: "PUT",
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-			body: JSON.stringify(title),
-		});
+		const token = getCookie("userToken") as string | undefined;
 
-		if (!response.ok) {
-			throw new Error("Failed to update course.");
+		if (!token) {
+			throw new Error(
+				"User token not available. Please log in."
+			);
 		}
 
-		return response.json();
+		const response = await axios.put(
+			url,
+			{ title },
+			{
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+
+		console.log(response);
+
+		return response.data;
 	} catch (error) {
 		throw new Error(
-			"Failed to get courses. Please try again later."
+			"Failed to update the course. Please try again later."
 		);
 	}
 }
 
 // Delete course
-export async function deleteCourse(token: string, id: string) {
-	const url = `${process.env.NEXT_PUBLIC_API_URL}cgpa-calculator/courses/:${id}`;
+export async function deleteCourse(id: string) {
+	const token = getCookie("userToken") || "";
+
+	const url = `${process.env.NEXT_PUBLIC_API_URL}/cgpa-calculator/courses/${id}`;
 
 	try {
-		const response = await fetch(url, {
-			method: "DELETE",
+		const response = await axios.delete(url, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
 		});
 
-		if (!response.ok) {
-			throw new Error("Failed to delete course.");
-		}
-
-		return response.json();
+		return response.data;
 	} catch (error) {
 		throw new Error(
 			"Failed to delete course. Please try again later."

@@ -6,29 +6,14 @@ import {
 	DialogContent,
 	DialogFooter,
 	DialogHeader,
-	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
 
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
-
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-import * as z from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderIcon, Pencil, Trash } from "lucide-react";
-import { deleteCourse, updateCourse } from "@/lib/requests";
+import { LoaderIcon, Trash } from "lucide-react";
+import { deleteCourse } from "@/lib/requests";
 import { Courses } from "../table/columns";
-import { title } from "process";
 import { DialogDescription } from "@radix-ui/react-dialog";
 
 interface DeleteCourseProps {
@@ -39,6 +24,21 @@ const DeleteCourse: React.FC<DeleteCourseProps> = ({ course }) => {
 	// State to handle form submission status
 	const [submitting, setSubmitting] = useState(false);
 	const [submissionError, setSubmissionError] = useState("");
+
+	const handleDelete = async () => {
+		setSubmitting(true);
+		setSubmissionError("");
+
+		try {
+			const response = await deleteCourse(course._id);
+
+			console.log("Course deleted successfully!");
+		} catch (error: any) {
+			console.error("Failed to delete course:", error);
+		} finally {
+			setSubmitting(false);
+		}
+	};
 
 	return (
 		<>
@@ -59,12 +59,7 @@ const DeleteCourse: React.FC<DeleteCourseProps> = ({ course }) => {
 					<DialogFooter>
 						<Button
 							className="bg-red-500"
-							onClick={() =>
-								// deleteCourse('hey', course.id)
-								console.log(
-									"deleting"
-								)
-							}
+							onClick={handleDelete}
 							disabled={submitting}
 						>
 							{submitting ? (

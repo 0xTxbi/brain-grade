@@ -39,6 +39,8 @@ const UpdateCourse: React.FC<UpdateCourseProps> = ({ course }) => {
 	const [submitting, setSubmitting] = useState(false);
 	const [submissionError, setSubmissionError] = useState("");
 
+	console.log(course);
+
 	// form's schema
 	const courseSchema = z.object({
 		title: z.string(),
@@ -56,9 +58,9 @@ const UpdateCourse: React.FC<UpdateCourseProps> = ({ course }) => {
 		setSubmissionError("");
 
 		try {
-			await updateCourse("hey", course.id, title);
+			await updateCourse(course._id, values.title);
 
-			console.log("Form data sent successfully!");
+			console.log("Form data sent successfully!", values);
 		} catch (error: any) {
 			setSubmissionError(error.message);
 			console.error("Form submission error:", error);

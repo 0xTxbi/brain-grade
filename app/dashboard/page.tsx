@@ -10,12 +10,9 @@ import Overview from "@/components/ui/dashboard-sections/overview";
 import Courses from "@/components/ui/dashboard-sections/my-courses";
 import { useCurrentUser } from "@/lib/hooks/useCurrentUser";
 import { Users2 } from "lucide-react";
-import { Drawer } from "vaul";
 
 export default function DashboardPage() {
 	const { user, isLoading, isError } = useCurrentUser();
-
-	console.log(user, isLoading, isError);
 
 	return (
 		<>

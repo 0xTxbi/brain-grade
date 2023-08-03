@@ -21,12 +21,14 @@ const fetcher = async (url: string) => {
 	}
 };
 
-export function useGetCourses() {
-	const url = `${process.env.NEXT_PUBLIC_API_URL}/cgpa-calculator/courses`;
+export function useGetCourseDetail(id: string) {
+	const url = `${process.env.NEXT_PUBLIC_API_URL}/cgpa-calculator/courses/${id}`;
 	const { data, error, isValidating } = useSWR(url, fetcher);
 
+	console.log(data);
+
 	return {
-		courses: data?.payload?.data || [],
+		courseDetail: data?.payload || [],
 		isLoading: !error && !data,
 		isError: error,
 		isValidating,
