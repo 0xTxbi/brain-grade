@@ -45,7 +45,8 @@ export default function DashboardPage() {
 				<div className="flex-1 space-y-4 p-8 pt-6">
 					<div className="flex items-center justify-between space-y-2">
 						<Heading level={2}>
-							wagwan, txbi 👋🏽
+							wagwan, {user?.username}{" "}
+							👋🏽
 						</Heading>
 						<div className="flex items-center space-x-2">
 							<UserDropDown avatarSrc="https://avatars.githubusercontent.com/u/46839250?v=4" />

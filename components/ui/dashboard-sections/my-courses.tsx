@@ -48,13 +48,16 @@ import { useGetCourses } from "@/lib/hooks/useGetCourses";
 import { DataTable } from "../table/data-table";
 import { columns } from "../table/columns";
 import { rawCourses } from "@/lib/utils";
+import { useGetCoursesWithToken } from "@/lib/hooks/useGetCoursesWithToken";
 
 const Courses: React.FC = () => {
-	// user's token
-	const token = "";
-
 	// obtain courses
-	// const { courses, isLoading, isError } = useGetCourses(token);
+	const {
+		courses: realCourses,
+		isLoading,
+		isError,
+	} = useGetCoursesWithToken();
+	console.log(realCourses);
 
 	// hard coded courses
 	const courses = rawCourses;

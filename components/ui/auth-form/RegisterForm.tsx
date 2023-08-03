@@ -44,8 +44,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 	const [submitting, setSubmitting] = React.useState(false);
 	const [submissionError, setSubmissionError] = React.useState("");
 
-	console.log(submitting);
-
 	const onSubmit = async (values: z.infer<typeof registerSchema>) => {
 		setSubmitting(true);
 		setSubmissionError("");

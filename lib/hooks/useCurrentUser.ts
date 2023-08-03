@@ -1,27 +1,30 @@
 import useSWR from "swr";
-
-interface User {
-	id: string;
-	username: string;
-	email: string;
-}
+import { getCookie } from "cookies-next";
 
 const fetcher = async (url: string) => {
-	const response = await fetch(url);
+	const token = getCookie("userToken");
+	const headers = token
+		? { Authorization: `Bearer ${token}` }
+		: undefined;
+
+	const response = await fetch(url, { headers });
 	if (!response.ok) {
 		throw new Error("Failed to fetch user details.");
 	}
 	return response.json();
 };
 
-const API_ENDPOINT =
-	"https://cgpa-calculator-api.onrender.com/api/v1/users/profile/me";
-
 export function useCurrentUser() {
-	const { data, error } = useSWR<User>(API_ENDPOINT, fetcher);
+	const token = getCookie("userToken");
+	const { data, error } = useSWR(
+		token
+			? `${process.env.NEXT_PUBLIC_API_URL}/users/profile/me`
+			: null,
+		fetcher
+	);
 
 	return {
-		user: data,
+		user: data?.payload,
 		isLoading: !error && !data,
 		isError: error,
 	};

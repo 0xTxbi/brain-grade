@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import axios, { AxiosRequestConfig } from "axios";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -35,3 +36,11 @@ export const rawCourses = [
 		units: 3,
 	},
 ];
+
+const url = process.env.NEXT_PUBLIC_API_URL;
+// const { TOKEN, SESSION_ID } = Authentication;
+
+const customAxios = axios.create({
+	baseURL: url,
+	timeout: 10000,
+});
