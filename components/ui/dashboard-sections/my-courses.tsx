@@ -45,16 +45,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderIcon } from "lucide-react";
 import { addCourse } from "@/lib/requests";
 import { useGetCourses } from "@/lib/hooks/useGetCourses";
+import { DataTable } from "../table/data-table";
+import { columns } from "../table/columns";
+import { rawCourses } from "@/lib/utils";
 
 const Courses: React.FC = () => {
 	// user's token
 	const token = "";
 
 	// obtain courses
-	const { courses, isLoading, isError } = useGetCourses(token);
+	// const { courses, isLoading, isError } = useGetCourses(token);
+
+	// hard coded courses
+	const courses = rawCourses;
 
 	// State to handle form submission status
 	const [submitting, setSubmitting] = useState(false);
+	console.log(courses);
 	const [submissionError, setSubmissionError] = useState("");
 
 	// form's schema
@@ -111,14 +118,21 @@ const Courses: React.FC = () => {
 						</CardTitle>
 					</CardHeader>
 					<CardContent>
-						{courses?.length < 1
-							? "you haven't added any course yet"
-							: "your courses"}
+						{courses?.length < 1 ? (
+							"you haven't added any course yet"
+						) : (
+							<DataTable
+								columns={
+									columns
+								}
+								data={courses}
+							/>
+						)}
 					</CardContent>
 				</Card>
 				<Dialog>
 					<DialogTrigger asChild>
-						<Card className="col-span-3 cursor-pointer">
+						<Card className="col-span-3 cursor-pointer max-h-[200px]">
 							<CardHeader>
 								<CardTitle>
 									Add

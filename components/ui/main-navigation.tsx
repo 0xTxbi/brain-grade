@@ -1,144 +1,201 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
+import * as React from "react";
+import Link from "next/link";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import { Paragraph } from "./typography/paragraph"
+	NavigationMenu,
+	NavigationMenuContent,
+	NavigationMenuItem,
+	NavigationMenuLink,
+	NavigationMenuList,
+	NavigationMenuTrigger,
+	navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { Paragraph } from "./typography/paragraph";
 
 const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "View Courses",
-    href: "/your-courses",
-    description:
-      "Get an overview of all added courses for the current semester, including names, instructors, credits, and grades.",
-  },
-  {
-    title: "Add Course",
-    href: "/add-course",
-    description:
-      "Easily add a new course to the current semester by providing details such as course name, instructor, credits, and grade.",
-  },
-  {
-    title: "Edit Course",
-    href: "/edit-course",
-    description:
-      "Make changes to previously added courses, including updating course information, instructor, credits, or grade.",
-  },
-  {
-    title: "Delete Course",
-    href: "/delete-course",
-    description: "Remove a course from the current semester if no longer needed, with a confirmation prompt for added safety.",
-  },
-  {
-    title: "Course Details",
-    href: "/course-details",
-    description:
-      "Access detailed information about a specific course, including its performance history, GPA contribution, and relevant statistics.",
-  },
-  {
-    title: "Semester Summary",
-    href: "/semester-summary",
-    description:
-      "Get a quick summary of the current semester, displaying the GPA, total credits, and additional insights for academic planning.",
-  },
-]
+	{
+		title: "View Courses",
+		href: "/your-courses",
+		description:
+			"Get an overview of all added courses for the current semester, including names, instructors, credits, and grades.",
+	},
+	{
+		title: "Add Course",
+		href: "/add-course",
+		description:
+			"Easily add a new course to the current semester by providing details such as course name, instructor, credits, and grade.",
+	},
+	{
+		title: "Edit Course",
+		href: "/edit-course",
+		description:
+			"Make changes to previously added courses, including updating course information, instructor, credits, or grade.",
+	},
+	{
+		title: "Delete Course",
+		href: "/delete-course",
+		description:
+			"Remove a course from the current semester if no longer needed, with a confirmation prompt for added safety.",
+	},
+	{
+		title: "Course Details",
+		href: "/course-details",
+		description:
+			"Access detailed information about a specific course, including its performance history, GPA contribution, and relevant statistics.",
+	},
+	{
+		title: "Semester Summary",
+		href: "/semester-summary",
+		description:
+			"Get a quick summary of the current semester, displaying the GPA, total credits, and additional insights for academic planning.",
+	},
+];
 
 export function MainNav() {
-  return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Get Started</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[600px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
-                <NavigationMenuLink asChild>
-                  <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
-                  >
-                    <div className="mb-2 mt-4 text-lg font-medium">
-                    Calculator
-                    </div>
-                    <p className="text-sm leading-tight text-muted-foreground">
-                    Effortlessly calculate your GPA by inputting your grades and
-                    credits for each course in the current semester.
-                    </p>
-                  </a>
-                </NavigationMenuLink>
-              </li>
-              <ListItem href="/semester-gpa" title="Calculate Semester GPA">
-              Calculate your GPA for the current semester.
-              </ListItem>
-              <ListItem href="/incomplete-grades" title="Incomplete Grades">
-              Include "Incomplete" grades to adjust GPA.
-              </ListItem>
-              <ListItem href="/required-grades" title="Required Grades">
-              Estimate grades needed for your target GPA.
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Course Management</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
-                <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
-                >
-                  {component.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Contact Us
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
-  )
+	return (
+		<NavigationMenu>
+			<NavigationMenuList>
+				<NavigationMenuItem>
+					<NavigationMenuTrigger>
+						Get Started
+					</NavigationMenuTrigger>
+					<NavigationMenuContent>
+						<ul className="grid gap-3 p-6 md:w-[600px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+							<li className="row-span-3">
+								<NavigationMenuLink
+									asChild
+								>
+									<a
+										className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+										href="/"
+									>
+										<div className="mb-2 mt-4 text-lg font-medium">
+											Calculator
+										</div>
+										<p className="text-sm leading-tight text-muted-foreground">
+											Effortlessly
+											calculate
+											your
+											GPA
+											by
+											inputting
+											your
+											grades
+											and
+											credits
+											for
+											each
+											course
+											in
+											the
+											current
+											semester.
+										</p>
+									</a>
+								</NavigationMenuLink>
+							</li>
+							<ListItem
+								href="/semester-gpa"
+								title="Calculate Semester GPA"
+							>
+								Calculate your
+								GPA for the
+								current
+								semester.
+							</ListItem>
+							<ListItem
+								href="/incomplete-grades"
+								title="Incomplete Grades"
+							>
+								Include
+								"Incomplete"
+								grades to adjust
+								GPA.
+							</ListItem>
+							<ListItem
+								href="/required-grades"
+								title="Required Grades"
+							>
+								Estimate grades
+								needed for your
+								target GPA.
+							</ListItem>
+						</ul>
+					</NavigationMenuContent>
+				</NavigationMenuItem>
+				<NavigationMenuItem>
+					<NavigationMenuTrigger>
+						Course Management
+					</NavigationMenuTrigger>
+					<NavigationMenuContent>
+						<ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+							{components.map(
+								(component) => (
+									<ListItem
+										key={
+											component.title
+										}
+										title={
+											component.title
+										}
+										href={
+											component.href
+										}
+									>
+										{
+											component.description
+										}
+									</ListItem>
+								)
+							)}
+						</ul>
+					</NavigationMenuContent>
+				</NavigationMenuItem>
+				<NavigationMenuItem>
+					<Link
+						href="/"
+						legacyBehavior
+						passHref
+					>
+						<NavigationMenuLink
+							className={navigationMenuTriggerStyle()}
+						>
+							Contact Us
+						</NavigationMenuLink>
+					</Link>
+				</NavigationMenuItem>
+			</NavigationMenuList>
+		</NavigationMenu>
+	);
 }
 
 const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
+	React.ElementRef<"a">,
+	React.ComponentPropsWithoutRef<"a">
 >(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  )
-})
-ListItem.displayName = "ListItem"
+	return (
+		<li>
+			<NavigationMenuLink asChild>
+				<a
+					ref={ref}
+					className={cn(
+						"block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+						className
+					)}
+					{...props}
+				>
+					<div className="text-sm font-medium leading-none">
+						{title}
+					</div>
+					<p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+						{children}
+					</p>
+				</a>
+			</NavigationMenuLink>
+		</li>
+	);
+});
+ListItem.displayName = "ListItem";

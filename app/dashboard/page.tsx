@@ -1,6 +1,4 @@
 "use client";
-
-import { Metadata } from "next";
 import Image from "next/image";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -11,6 +9,8 @@ import { MainNav } from "@/components/ui/main-navigation";
 import Overview from "@/components/ui/dashboard-sections/overview";
 import Courses from "@/components/ui/dashboard-sections/my-courses";
 import { useCurrentUser } from "@/lib/hooks/useCurrentUser";
+import { Users2 } from "lucide-react";
+import { Drawer } from "vaul";
 
 export default function DashboardPage() {
 	const { user, isLoading, isError } = useCurrentUser();
@@ -36,7 +36,7 @@ export default function DashboardPage() {
 					className="hidden dark:block"
 				/>
 			</div>
-			<div className="hidden flex-col md:flex">
+			<div className="flex flex-col md:flex">
 				<div className="border-b">
 					<div className="flex h-16 items-center justify-center px-4">
 						<MainNav />
@@ -100,6 +100,13 @@ export default function DashboardPage() {
 						</TabsContent>
 					</Tabs>
 				</div>
+			</div>
+
+			<div className="fixed bottom-0 left-1/2 z-50 transform -translate-x-1/2 mb-10">
+				<Button className="animate-pulse">
+					<Users2 className="mr-2 h-4 w-4" />
+					Contributors
+				</Button>
 			</div>
 		</>
 	);

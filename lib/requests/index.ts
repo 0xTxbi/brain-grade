@@ -41,8 +41,12 @@ export async function authenticateUser(data: any) {
 			throw new Error("Failed to add the course.");
 		}
 
-		console.log(response);
-		return response.json();
+		const responseData = await response.json();
+		const { token } = responseData;
+
+		console.log("Token retrieved from server:", token);
+
+		return token;
 	} catch (error) {
 		throw new Error("Failed to create user");
 	}

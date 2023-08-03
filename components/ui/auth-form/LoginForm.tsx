@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,6 @@ import {
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authenticateUser } from "@/lib/requests";
 
 type LoginFormValues = {
 	email: string;
@@ -55,14 +55,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ className, ...props }) => {
 				parsedValues
 			);
 
-			const response = await authenticateUser(parsedValues);
+			// const response = await authenticateUser(
+			// 	parsedValues,
+			// 	{} as NextApiRequest,
+			// 	{} as NextApiResponse
+			// );
 
-			console.log("Form data sent successfully!", response);
+			// console.log("Form data sent successfully!", response);
 
-			if (response.status_code === 200) {
-				// Redirect to the /dashboard route
-				window.location.href = "/dashboard";
-			}
+			// if (response.status_code === 200) {
+			// 	// Redirect to the /dashboard route
+			// 	window.location.href = "/dashboard";
+			// }
 		} catch (error: any) {
 			setSubmissionError(error.message);
 			console.error("Form submission error:", error);
