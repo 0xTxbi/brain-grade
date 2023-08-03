@@ -1,17 +1,10 @@
 "use client";
-
 import { ColumnDef } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
+import UpdateCourse from "../course-actions/update-course";
+import DeleteCourse from "../course-actions/delete-course";
 
 // define the shape of our data.
 export type Courses = {
@@ -68,43 +61,13 @@ export const columns: ColumnDef<Courses>[] = [
 	{
 		id: "actions",
 		cell: ({ row }) => {
-			const payment = row.original;
+			const course = row.original;
 
 			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button
-							variant="ghost"
-							className="h-8 w-8 p-0"
-						>
-							<span className="sr-only">
-								Open menu
-							</span>
-							<MoreHorizontal className="h-4 w-4" />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-						<DropdownMenuLabel>
-							Actions
-						</DropdownMenuLabel>
-						<DropdownMenuItem
-							onClick={() =>
-								navigator.clipboard.writeText(
-									payment.id
-								)
-							}
-						>
-							View Course
-						</DropdownMenuItem>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem>
-							Update Course
-						</DropdownMenuItem>
-						<DropdownMenuItem>
-							Delete Course
-						</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
+				<div className="flex space-x-4">
+					<UpdateCourse course={course} />
+					<DeleteCourse course={course} />
+				</div>
 			);
 		},
 	},

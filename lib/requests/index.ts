@@ -100,3 +100,52 @@ export async function getCourses(token: string) {
 		);
 	}
 }
+
+// Update course
+export async function updateCourse(token: string, id: string, title: string) {
+	const url = `${endpoint}cgpa-calculator/courses/:${id}`;
+
+	try {
+		const response = await fetch(url, {
+			method: "PUT",
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify(title),
+		});
+
+		if (!response.ok) {
+			throw new Error("Failed to update course.");
+		}
+
+		return response.json();
+	} catch (error) {
+		throw new Error(
+			"Failed to get courses. Please try again later."
+		);
+	}
+}
+
+// Delete course
+export async function deleteCourse(token: string, id: string) {
+	const url = `${endpoint}cgpa-calculator/courses/:${id}`;
+
+	try {
+		const response = await fetch(url, {
+			method: "DELETE",
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+
+		if (!response.ok) {
+			throw new Error("Failed to delete course.");
+		}
+
+		return response.json();
+	} catch (error) {
+		throw new Error(
+			"Failed to delete course. Please try again later."
+		);
+	}
+}

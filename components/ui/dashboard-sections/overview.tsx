@@ -8,6 +8,9 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 
+import { Button } from "@/components/ui/button";
+import CalculateGPA from "../calculate-gpa-modal";
+
 const Overview: React.FC = () => {
 	return (
 		<>
@@ -158,6 +161,7 @@ const Overview: React.FC = () => {
 						{/* <RecentSales /> */}
 					</CardContent>
 				</Card>
+				<CalculateGPA />
 			</div>
 		</>
 	);
