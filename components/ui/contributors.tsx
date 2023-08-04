@@ -1,10 +1,100 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Users2 } from "lucide-react";
 import { Drawer } from "vaul";
+import { useState } from "react";
 
 export function Contributors() {
+	const contributorList = [
+		{
+			number: 1,
+			matric_number: "18/52HA115",
+			name: "OLUFEMI, Victor Ayodeji",
+			initials: "OV",
+		},
+		{
+			number: 2,
+			matric_number: "18/52HA116",
+			name: "OLUROMBI, Adebiyi Adegbola",
+			initials: "OA",
+		},
+		{
+			number: 3,
+			matric_number: "18/52HA117",
+			name: "OLUSOSUN, Abimbola Muyideen",
+			initials: "OM",
+		},
+		{
+			number: 4,
+			matric_number: "18/52HA118",
+			name: "OMORAIYEWA, Samuel",
+			initials: "OS",
+		},
+		{
+			number: 5,
+			matric_number: "18/52HA121",
+			name: "OWOLABI, Adam Oriyomi",
+			initials: "OA",
+		},
+		{
+			number: 6,
+			matric_number: "18/52HA122",
+			name: "OWOSENI, Rasheed Kayode",
+			initials: "OR",
+		},
+		{
+			number: 7,
+			matric_number: "18/52HA123",
+			name: "OWOYALE, Muhammed Salihu",
+			initials: "OM",
+		},
+		{
+			number: 8,
+			matric_number: "18/52HA124",
+			name: "OYEBOADE, Israel Oluwapelumi",
+			initials: "OI",
+		},
+		{
+			number: 9,
+			matric_number: "18/52HA125",
+			name: "OYELEKE, Joshua Oluwasayo",
+			initials: "OJ",
+		},
+		{
+			number: 10,
+			matric_number: "18/52HA127",
+			name: "OYINLOYE, James Muyiwa",
+			initials: "OJ",
+		},
+		{
+			number: 11,
+			matric_number: "18/52HA128",
+			name: "PAUL, Mary Abisola",
+			initials: "PM",
+		},
+		{
+			number: 12,
+			matric_number: "18/52HA129",
+			name: "RAJI, Joseph Oluwatobi",
+			initials: "RJ",
+		},
+		{
+			number: 13,
+			matric_number: "18/52HA130",
+			name: "SALAKO, Quazeem Olawale",
+			initials: "SQ",
+		},
+		{
+			number: 14,
+			matric_number: "18/52HA070",
+			name: "IBISAGBA, Daniel Ayomikun",
+			initials: "ID",
+		},
+	];
+
 	return (
 		<Drawer.Root shouldScaleBackground>
 			<Drawer.Trigger asChild>
@@ -20,93 +110,56 @@ export function Contributors() {
 				<Drawer.Content className="bg-zinc-100 flex flex-col rounded-t-[10px] h-[96%] mt-24 fixed bottom-0 left-0 right-0">
 					<div className="p-4 bg-white rounded-t-[10px] flex-1">
 						<div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-zinc-300 mb-8" />
-						<div className="max-w-md mx-auto">
-							<Drawer.Title className="font-medium mb-4">
-								Unstyled drawer
-								for React.
+						<div className="max-w-md mx-auto mb-10">
+							<Drawer.Title className="font-bold mb-2 text-lg">
+								Contributors
 							</Drawer.Title>
 							<p className="text-zinc-600 mb-2">
-								This component
-								can be used as a
-								replacement for
-								a Dialog on
-								mobile and
-								tablet devices.
-							</p>
-							<p className="text-zinc-600 mb-8">
-								It uses{" "}
-								<a
-									href="https://www.radix-ui.com/docs/primitives/components/dialog"
-									className="underline"
-									target="_blank"
-								>
-									Radix&apos;s
-									Dialog
-									primitive
-								</a>{" "}
-								under the hood
-								and is inspired
-								by{" "}
-								<a
-									href="https://twitter.com/devongovett/status/1674470185783402496"
-									className="underline"
-									target="_blank"
-								>
-									this
-									tweet.
-								</a>
+								the following
+								are contributors
+								and members of
+								the CGPA
+								calculator
+								project
 							</p>
 						</div>
-					</div>
-					<div className="p-4 bg-zinc-100 border-t border-zinc-200 mt-auto">
-						<div className="flex gap-6 justify-end max-w-md mx-auto">
-							<a
-								className="text-xs text-zinc-600 flex items-center gap-0.25"
-								href="https://github.com/emilkowalski/vaul"
-								target="_blank"
-							>
-								GitHub
-								<svg
-									fill="none"
-									height="16"
-									stroke="currentColor"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									viewBox="0 0 24 24"
-									width="16"
-									aria-hidden="true"
-									className="w-3 h-3 ml-1"
-								>
-									<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-									<path d="M15 3h6v6"></path>
-									<path d="M10 14L21 3"></path>
-								</svg>
-							</a>
-							<a
-								className="text-xs text-zinc-600 flex items-center gap-0.25"
-								href="https://twitter.com/emilkowalski_"
-								target="_blank"
-							>
-								Twitter
-								<svg
-									fill="none"
-									height="16"
-									stroke="currentColor"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									viewBox="0 0 24 24"
-									width="16"
-									aria-hidden="true"
-									className="w-3 h-3 ml-1"
-								>
-									<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-									<path d="M15 3h6v6"></path>
-									<path d="M10 14L21 3"></path>
-								</svg>
-							</a>
+
+						<div className="space-y-1">
+							<h4 className="text-sm font-semibold leading-none">
+								CSC 420 – Group
+								8
+							</h4>
+							<p className="text-sm text-muted-foreground"></p>
 						</div>
+						<Separator className="my-4" />
+						<ScrollArea className="h-[70vh] w-[350px] rounded-md border p-4">
+							{contributorList.map(
+								(
+									contributor
+								) => (
+									<>
+										<div className="flex h-5 items-center space-x-4 text-xs">
+											<div className="text-muted-foreground">
+												{`#${contributor.number}`}
+											</div>
+											<Separator orientation="vertical" />
+											<div>
+												{
+													contributor.matric_number
+												}
+											</div>
+											<Separator orientation="vertical" />
+											<div className="text-muted-foreground">
+												{
+													contributor.name
+												}
+											</div>
+										</div>
+										<Separator className="my-4" />
+									</>
+								)
+							)}
+						</ScrollArea>
 					</div>
 				</Drawer.Content>
 			</Drawer.Portal>
