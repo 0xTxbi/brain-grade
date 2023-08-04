@@ -96,7 +96,7 @@ export function Contributors() {
 	];
 
 	return (
-		<Drawer.Root shouldScaleBackground>
+		<Drawer.Root>
 			<Drawer.Trigger asChild>
 				<div className="fixed bottom-0 left-1/2 z-50 transform -translate-x-1/2 mb-10">
 					<Button className="animate-pulse">
@@ -125,20 +125,20 @@ export function Contributors() {
 						</div>
 
 						<div className="space-y-1">
-							<h4 className="text-sm font-semibold leading-none">
+							<h4 className="text-sm font-semibold leading-none md:text-lg">
 								CSC 420 – Group
 								8
 							</h4>
 							<p className="text-sm text-muted-foreground"></p>
 						</div>
 						<Separator className="my-4" />
-						<ScrollArea className="h-[70vh] w-[350px] rounded-md border p-4">
+						<ScrollArea className="h-[70vh] w-[350px] mb-5 rounded-md border p-4 md:h-[90vh] md:w-full">
 							{contributorList.map(
 								(
 									contributor
 								) => (
 									<>
-										<div className="flex h-5 items-center space-x-4 text-xs">
+										<div className="flex h-5 items-center space-x-4 text-xs md:text-md">
 											<div className="text-muted-foreground">
 												{`#${contributor.number}`}
 											</div>

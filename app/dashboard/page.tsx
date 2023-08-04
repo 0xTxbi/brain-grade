@@ -1,15 +1,11 @@
 "use client";
-import Image from "next/image";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/typography/heading";
 import UserDropDown from "@/components/ui/user-dropdown";
 import { MainNav } from "@/components/ui/main-navigation";
 import Overview from "@/components/ui/dashboard-sections/overview";
 import Courses from "@/components/ui/dashboard-sections/my-courses";
 import { useCurrentUser } from "@/lib/hooks/useCurrentUser";
-import { Users2 } from "lucide-react";
 import { useCalculateGPA } from "@/lib/hooks/useCalculateGPA";
 import { Contributors } from "@/components/ui/contributors";
 
@@ -33,7 +29,7 @@ export default function DashboardPage() {
 							wagwan, {user?.username}{" "}
 							👋🏽
 						</Heading>
-						<div className="flex items-center space-x-2">
+						<div className="flex items-center">
 							<UserDropDown avatarSrc="https://avatars.githubusercontent.com/u/46839250?v=4" />
 						</div>
 					</div>

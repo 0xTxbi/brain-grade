@@ -144,22 +144,55 @@ const Overview: React.FC<OverviewProps> = ({
 			</div>
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 				<Card className="col-span-4">
-					<CardHeader>
+					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 						<CardTitle>
 							Current Class
 						</CardTitle>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							className="h-4 w-4 text-muted-foreground"
+						>
+							<circle
+								cx="12"
+								cy="8"
+								r="6"
+							/>
+							<path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+						</svg>
 					</CardHeader>
 					<CardContent>
 						{current_class}
 					</CardContent>
 				</Card>
-				<Card className="col-span-3">
-					<CardHeader>
+				<Card className="col-span-4 md:col-span-3">
+					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 						<CardTitle>Remark</CardTitle>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							fill="none"
+							stroke="currentColor"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
+							className="h-4 w-4 text-muted-foreground"
+							viewBox="0 0 24 24"
+						>
+							<path d="M3 21l1.9-5.7a8.5 8.5 0 113.8 3.8z"></path>
+						</svg>
 					</CardHeader>
 					<CardContent>{comment}</CardContent>
 				</Card>
-				<CalculateGPA />
+				{/* <CalculateGPA /> */}
 			</div>
 		</>
 	);
