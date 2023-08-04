@@ -7,21 +7,17 @@ export async function registerUser(data: any) {
 	const url = `${process.env.NEXT_PUBLIC_API_URL}/users`;
 
 	try {
-		const response = await fetch(url, {
-			method: "POST",
+		const response = await axios.post(url, data, {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(data),
 		});
 
-		if (!response.ok) {
-			throw new Error("Failed to register user.");
-		}
+		console.log(response);
 
-		return response.json();
+		return response.data;
 	} catch (error) {
-		throw new Error("Failed to create user");
+		throw new Error("Failed to register user");
 	}
 }
 
@@ -38,10 +34,7 @@ export async function authenticateUser(data: any): Promise<void> {
 		setCookie("userToken", token, {
 			maxAge: 60 * 60 * 24,
 		});
-
-		window.location.replace("/dashboard");
 	} catch (error) {
-		// Handle login error (e.g., show error message to the user)
 		console.error("Login error:", error);
 		throw new Error("Failed to create user");
 	}

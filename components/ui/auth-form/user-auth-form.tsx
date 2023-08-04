@@ -52,31 +52,6 @@ export function UserAuthForm({ className, mode, ...props }: UserAuthFormProps) {
 		defaultValues,
 	});
 
-	const [submitting, setSubmitting] = React.useState(false);
-	const [submissionError, setSubmissionError] = React.useState("");
-
-	const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
-	const onSubmit = async (values: z.infer<typeof userSchema>) => {
-		setSubmitting(true);
-		setSubmissionError("");
-
-		try {
-			const parsedValues = {
-				...values,
-			};
-
-			console.log("Form values submitted:", parsedValues);
-
-			console.log("Form data sent successfully!");
-		} catch (error: any) {
-			setSubmissionError(error.message);
-			console.error("Form submission error:", error);
-		} finally {
-			setSubmitting(false);
-		}
-	};
-
 	return (
 		<div
 			className={cn("grid gap-6", className)}

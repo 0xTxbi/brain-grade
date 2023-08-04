@@ -15,7 +15,8 @@ import {
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerUser } from "@/lib/requests";
+import { authenticateUser, registerUser } from "@/lib/requests";
+import { useRouter } from "next/navigation";
 
 type RegisterFormValues = {
 	username: string;
@@ -26,6 +27,8 @@ type RegisterFormValues = {
 interface RegisterFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
+	const router = useRouter();
+
 	const registerSchema = z.object({
 		username: z.string(),
 		email: z.string().email(),
@@ -44,27 +47,30 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 	const [submitting, setSubmitting] = React.useState(false);
 	const [submissionError, setSubmissionError] = React.useState("");
 
+	const [showPassword, setShowPassword] = React.useState(false);
+
+	const togglePasswordVisibility = () => {
+		setShowPassword((prev) => !prev);
+	};
+
 	const onSubmit = async (values: z.infer<typeof registerSchema>) => {
 		setSubmitting(true);
 		setSubmissionError("");
 
 		try {
-			const parsedValues = {
-				...values,
+			const loginValues = {
+				email: values.email,
+				password: values.password,
 			};
 
-			console.log(
-				"Register form values submitted:",
-				parsedValues
-			);
+			const response = await registerUser(values);
 
-			const response = await registerUser(parsedValues);
-
-			console.log("Form data sent successfully!", response);
-
+			// login user upon successful registration
 			if (response.status_code === 200) {
-				// Redirect to the /dashboard route
-				window.location.href = "/dashboard";
+				await authenticateUser(loginValues);
+				router.push("/dashboard");
+			} else {
+				console.log("Registration failed.");
 			}
 		} catch (error: any) {
 			setSubmissionError(error.message);
@@ -85,6 +91,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 					className="space-y-8"
 				>
 					<div className="grid gap-4 py-4">
+						{/* Username */}
 						<FormField
 							control={form.control}
 							name="username"
@@ -107,6 +114,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 							)}
 						/>
 
+						{/* Email address */}
 						<FormField
 							control={form.control}
 							name="email"
@@ -130,6 +138,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 							)}
 						/>
 
+						{/* Password */}
 						<FormField
 							control={form.control}
 							name="password"
@@ -140,9 +149,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 									</FormLabel>
 									<FormControl>
 										<Input
-											type="password"
+											type={
+												showPassword
+													? "text"
+													: "password"
+											}
 											id="password"
-											className="col-span-3"
+											className="col-span-3 pr-10"
 											{...field}
 										/>
 									</FormControl>
@@ -159,7 +172,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 						{submitting ? (
 							<>
 								<Loader2 className="mr-2 h-4 w-4" />
-								Create Account
+								Creating Account
 							</>
 						) : (
 							<>

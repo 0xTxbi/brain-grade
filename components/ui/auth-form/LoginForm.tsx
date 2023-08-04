@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,6 +27,8 @@ type LoginFormValues = {
 interface LoginFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const LoginForm: React.FC<LoginFormProps> = ({ className, ...props }) => {
+	const router = useRouter();
+
 	const loginSchema = z.object({
 		email: z.string().email(),
 		password: z.string(),
@@ -57,6 +60,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ className, ...props }) => {
 			);
 
 			authenticateUser(parsedValues);
+			router.push("/dashboard");
 		} catch (error: any) {
 			setSubmissionError(error.message);
 			console.error("Form submission error:", error);
@@ -122,6 +126,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ className, ...props }) => {
 					</div>
 
 					<Button
+						type="submit"
 						className="w-full"
 						disabled={submitting}
 					>
