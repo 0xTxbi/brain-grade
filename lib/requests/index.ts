@@ -13,8 +13,6 @@ export async function registerUser(data: any) {
 			},
 		});
 
-		console.log(response);
-
 		return response.data;
 	} catch (error) {
 		throw new Error("Failed to register user");
@@ -22,7 +20,7 @@ export async function registerUser(data: any) {
 }
 
 // Authenticate existing user
-export async function authenticateUser(data: any): Promise<void> {
+export async function authenticateUser(data: any) {
 	const url = `${process.env.NEXT_PUBLIC_API_URL}/users/login`;
 
 	try {
@@ -34,6 +32,8 @@ export async function authenticateUser(data: any): Promise<void> {
 		setCookie("userToken", token, {
 			maxAge: 60 * 60 * 24,
 		});
+
+		return response.data;
 	} catch (error) {
 		console.error("Login error:", error);
 		throw new Error("Failed to create user");

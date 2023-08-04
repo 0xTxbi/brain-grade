@@ -8,11 +8,13 @@ import Courses from "@/components/ui/dashboard-sections/my-courses";
 import { useCurrentUser } from "@/lib/hooks/useCurrentUser";
 import { useCalculateGPA } from "@/lib/hooks/useCalculateGPA";
 import { Contributors } from "@/components/ui/contributors";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function DashboardPage() {
 	const { user, isLoading, isError } = useCurrentUser();
 	const { gpa } = useCalculateGPA();
 
+	console.log(user);
 	console.log(gpa);
 
 	return (
@@ -23,6 +25,8 @@ export default function DashboardPage() {
 						<MainNav />
 					</div>
 				</div>
+				<Toaster />
+
 				<div className="flex-1 space-y-4 p-8 pt-6">
 					<div className="flex items-center justify-between space-y-2">
 						<Heading level={2}>
