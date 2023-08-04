@@ -66,12 +66,12 @@ export default function AuthPage() {
 					</div>
 				</div>
 				<div className="lg:p-8">
-					<div className="mx-auto text-sm flex w-full flex-col justify-center space-y-6">
+					<div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
 						<Tabs
 							defaultValue="sign-up"
-							className="w-[400px]"
+							className="lg:w-[400px]"
 						>
-							<TabsList className="grid w-full grid-cols-2 text-sm">
+							<TabsList className="grid w-full grid-cols-2 mt-10">
 								<TabsTrigger value="sign-up">
 									Sign Up
 								</TabsTrigger>
