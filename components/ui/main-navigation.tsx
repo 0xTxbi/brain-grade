@@ -133,13 +133,13 @@ export function MainNav() {
 						</ul>
 					</NavigationMenuContent>
 				</NavigationMenuItem>
-				<NavigationMenuItem>
+				{/* <NavigationMenuItem>
 					<NavigationMenuLink
 						className={navigationMenuTriggerStyle()}
 					>
 						Contributors
 					</NavigationMenuLink>
-				</NavigationMenuItem>
+				</NavigationMenuItem> */}
 			</NavigationMenuList>
 		</NavigationMenu>
 	);

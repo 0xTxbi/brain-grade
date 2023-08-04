@@ -11,6 +11,7 @@ import Courses from "@/components/ui/dashboard-sections/my-courses";
 import { useCurrentUser } from "@/lib/hooks/useCurrentUser";
 import { Users2 } from "lucide-react";
 import { useCalculateGPA } from "@/lib/hooks/useCalculateGPA";
+import { Contributors } from "@/components/ui/contributors";
 
 export default function DashboardPage() {
 	const { user, isLoading, isError } = useCurrentUser();
@@ -48,23 +49,10 @@ export default function DashboardPage() {
 								My Courses
 							</TabsTrigger>
 							<TabsTrigger
-								value="course-performance"
-								disabled
-							>
-								Course
-								Performance
-							</TabsTrigger>
-							<TabsTrigger
 								value="predictions"
 								disabled
 							>
 								Predictions
-							</TabsTrigger>
-							<TabsTrigger
-								value="semester-details"
-								disabled
-							>
-								Semester Details
 							</TabsTrigger>
 						</TabsList>
 
@@ -98,12 +86,7 @@ export default function DashboardPage() {
 				</div>
 			</div>
 
-			<div className="fixed bottom-0 left-1/2 z-50 transform -translate-x-1/2 mb-10">
-				<Button className="animate-pulse">
-					<Users2 className="mr-2 h-4 w-4" />
-					Contributors
-				</Button>
-			</div>
+			<Contributors />
 		</>
 	);
 }
