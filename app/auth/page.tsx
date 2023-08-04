@@ -6,8 +6,24 @@ import { UserAuthForm } from "@/components/ui/auth-form/user-auth-form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const metadata: Metadata = {
-	title: "Authentication",
-	description: "Authentication forms built using the components.",
+	title: "BrainGrade",
+	description: "an intuitive CGPA Calculator",
+	openGraph: {
+		title: "BrainGrade",
+		description: "an intuitive CGPA Calculator",
+		url: "https://brain-grade.vercel.app/",
+		siteName: "BrainGrade",
+		images: [
+			{
+				url: "https://res.cloudinary.com/uglymolluska/image/upload/v1691129576/1a46e0f3-8dc1-4b32-971e-e9c4267b2da1_k1pdhs.jpg",
+				width: 1600,
+				height: 900,
+				alt: "My custom alt",
+			},
+		],
+		locale: "en_US",
+		type: "website",
+	},
 };
 
 export default function AuthPage() {

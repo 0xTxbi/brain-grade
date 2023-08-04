@@ -30,7 +30,7 @@ export default function DashboardPage() {
 							👋🏽
 						</Heading>
 						<div className="flex items-center">
-							<UserDropDown avatarSrc="https://avatars.githubusercontent.com/u/46839250?v=4" />
+							<UserDropDown avatarSrc="" />
 						</div>
 					</div>
 					<Tabs
