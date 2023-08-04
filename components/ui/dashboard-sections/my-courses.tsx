@@ -68,8 +68,8 @@ const Courses: React.FC = () => {
 
 	return (
 		<>
-			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-				<Card className="col-span-4">
+			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+				<Card className="col-span-4 overflow-scroll">
 					<CardHeader>
 						<CardTitle>
 							Your Courses
