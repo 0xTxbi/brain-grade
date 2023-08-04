@@ -45,11 +45,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderIcon } from "lucide-react";
 import { addCourse } from "@/lib/requests";
 import { rawCourses } from "@/lib/utils";
+import { useGetCourses } from "@/lib/hooks/useGetCourses";
 
 const AddCourse: React.FC = () => {
+	// get course refresh function
+	const { refreshData } = useGetCourses();
+
 	// State to handle form submission status
 	const [submitting, setSubmitting] = useState(false);
 	const [submissionError, setSubmissionError] = useState("");
+
+	const [isOpen, setIsOpen] = React.useState(false);
+
+	const handleClose = () => {
+		setIsOpen(false);
+	};
 
 	// form's schema
 	const courseSchema = z.object({
@@ -91,16 +101,22 @@ const AddCourse: React.FC = () => {
 			);
 
 			await addCourse(parsedValues);
+			form.reset();
+			refreshData();
 		} catch (error: any) {
 			setSubmissionError(error.message);
 			console.error("Form submission error:", error);
 		} finally {
 			setSubmitting(false);
+			handleClose();
 		}
 	};
 
 	return (
-		<Dialog>
+		<Dialog
+			open={isOpen}
+			onOpenChange={(open) => setIsOpen(open)}
+		>
 			<DialogTrigger asChild>
 				<Card className="col-span-3 cursor-pointer max-h-[200px]">
 					<CardHeader>

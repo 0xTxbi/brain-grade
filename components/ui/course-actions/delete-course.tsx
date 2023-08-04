@@ -25,6 +25,12 @@ const DeleteCourse: React.FC<DeleteCourseProps> = ({ course }) => {
 	const [submitting, setSubmitting] = useState(false);
 	const [submissionError, setSubmissionError] = useState("");
 
+	const [isOpen, setIsOpen] = React.useState(false);
+
+	const handleClose = () => {
+		setIsOpen(false);
+	};
+
 	const handleDelete = async () => {
 		setSubmitting(true);
 		setSubmissionError("");
@@ -37,12 +43,16 @@ const DeleteCourse: React.FC<DeleteCourseProps> = ({ course }) => {
 			console.error("Failed to delete course:", error);
 		} finally {
 			setSubmitting(false);
+			handleClose();
 		}
 	};
 
 	return (
 		<>
-			<Dialog>
+			<Dialog
+				open={isOpen}
+				onOpenChange={(open) => setIsOpen(open)}
+			>
 				<DialogTrigger>
 					<Button variant="outline">
 						<Trash className="h-4 w-4" />

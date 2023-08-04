@@ -8,10 +8,21 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 
-import { Button } from "@/components/ui/button";
 import CalculateGPA from "../calculate-gpa-modal";
 
-const Overview: React.FC = () => {
+interface OverviewProps {
+	cgpa: number;
+	totalGradePoints: string;
+	current_class: string;
+	comment: string;
+}
+
+const Overview: React.FC<OverviewProps> = ({
+	cgpa,
+	totalGradePoints,
+	current_class,
+	comment,
+}) => {
 	return (
 		<>
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -38,11 +49,8 @@ const Overview: React.FC = () => {
 					</CardHeader>
 					<CardContent>
 						<div className="text-2xl font-bold">
-							5.00
+							{cgpa}
 						</div>
-						<p className="text-xs text-muted-foreground">
-							+1.1% from last session
-						</p>
 					</CardContent>
 				</Card>
 				<Card>
@@ -68,11 +76,8 @@ const Overview: React.FC = () => {
 					</CardHeader>
 					<CardContent>
 						<div className="text-2xl font-bold">
-							4.98
+							{totalGradePoints}
 						</div>
-						<p className="text-xs text-muted-foreground">
-							+0.9% from last session
-						</p>
 					</CardContent>
 				</Card>
 				<Card>
@@ -144,22 +149,15 @@ const Overview: React.FC = () => {
 							Current Class
 						</CardTitle>
 					</CardHeader>
-					<CardContent className="pl-2">
-						{/* <Overview /> */}
+					<CardContent>
+						{current_class}
 					</CardContent>
 				</Card>
 				<Card className="col-span-3">
 					<CardHeader>
 						<CardTitle>Remark</CardTitle>
-						<CardDescription>
-							You made tremendous
-							progress over the past
-							semesters
-						</CardDescription>
 					</CardHeader>
-					<CardContent>
-						{/* <RecentSales /> */}
-					</CardContent>
+					<CardContent>{comment}</CardContent>
 				</Card>
 				<CalculateGPA />
 			</div>

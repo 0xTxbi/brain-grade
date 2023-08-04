@@ -10,29 +10,16 @@ import Overview from "@/components/ui/dashboard-sections/overview";
 import Courses from "@/components/ui/dashboard-sections/my-courses";
 import { useCurrentUser } from "@/lib/hooks/useCurrentUser";
 import { Users2 } from "lucide-react";
+import { useCalculateGPA } from "@/lib/hooks/useCalculateGPA";
 
 export default function DashboardPage() {
 	const { user, isLoading, isError } = useCurrentUser();
+	const { gpa } = useCalculateGPA();
+
+	console.log(gpa);
 
 	return (
 		<>
-			<div className="md:hidden">
-				<Image
-					src="/examples/dashboard-light.png"
-					width={1280}
-					height={866}
-					alt="Dashboard"
-					className="block dark:hidden"
-				/>
-				<Button></Button>
-				<Image
-					src="/examples/dashboard-dark.png"
-					width={1280}
-					height={866}
-					alt="Dashboard"
-					className="hidden dark:block"
-				/>
-			</div>
 			<div className="flex flex-col md:flex">
 				<div className="border-b">
 					<div className="flex h-16 items-center justify-center px-4">
@@ -86,7 +73,18 @@ export default function DashboardPage() {
 							value="overview"
 							className="space-y-4"
 						>
-							<Overview />
+							<Overview
+								cgpa={gpa.cgpa}
+								totalGradePoints={
+									gpa.totalGradePoints
+								}
+								current_class={
+									gpa.current_class
+								}
+								comment={
+									gpa.comment
+								}
+							/>
 						</TabsContent>
 
 						{/* My Courses tab content */}

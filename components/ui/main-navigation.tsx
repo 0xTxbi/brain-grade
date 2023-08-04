@@ -15,40 +15,34 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Paragraph } from "./typography/paragraph";
 
-const components: { title: string; href: string; description: string }[] = [
+const components: { title: string; description: string }[] = [
 	{
 		title: "View Courses",
-		href: "/your-courses",
 		description:
 			"Get an overview of all added courses for the current semester, including names, instructors, credits, and grades.",
 	},
 	{
 		title: "Add Course",
-		href: "/add-course",
 		description:
 			"Easily add a new course to the current semester by providing details such as course name, instructor, credits, and grade.",
 	},
 	{
 		title: "Edit Course",
-		href: "/edit-course",
 		description:
 			"Make changes to previously added courses, including updating course information, instructor, credits, or grade.",
 	},
 	{
 		title: "Delete Course",
-		href: "/delete-course",
 		description:
 			"Remove a course from the current semester if no longer needed, with a confirmation prompt for added safety.",
 	},
 	{
 		title: "Course Details",
-		href: "/course-details",
 		description:
 			"Access detailed information about a specific course, including its performance history, GPA contribution, and relevant statistics.",
 	},
 	{
 		title: "Semester Summary",
-		href: "/semester-summary",
 		description:
 			"Get a quick summary of the current semester, displaying the GPA, total credits, and additional insights for academic planning.",
 	},
@@ -68,10 +62,7 @@ export function MainNav() {
 								<NavigationMenuLink
 									asChild
 								>
-									<a
-										className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-										href="/"
-									>
+									<div className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
 										<div className="mb-2 mt-4 text-lg font-medium">
 											Calculator
 										</div>
@@ -94,31 +85,22 @@ export function MainNav() {
 											current
 											semester.
 										</p>
-									</a>
+									</div>
 								</NavigationMenuLink>
 							</li>
-							<ListItem
-								href="/semester-gpa"
-								title="Calculate Semester GPA"
-							>
+							<ListItem title="Calculate Semester GPA">
 								Calculate your
 								GPA for the
 								current
 								semester.
 							</ListItem>
-							<ListItem
-								href="/incomplete-grades"
-								title="Incomplete Grades"
-							>
+							<ListItem title="Incomplete Grades">
 								Include
 								"Incomplete"
 								grades to adjust
 								GPA.
 							</ListItem>
-							<ListItem
-								href="/required-grades"
-								title="Required Grades"
-							>
+							<ListItem title="Required Grades">
 								Estimate grades
 								needed for your
 								target GPA.
@@ -141,9 +123,6 @@ export function MainNav() {
 										title={
 											component.title
 										}
-										href={
-											component.href
-										}
 									>
 										{
 											component.description
@@ -155,17 +134,11 @@ export function MainNav() {
 					</NavigationMenuContent>
 				</NavigationMenuItem>
 				<NavigationMenuItem>
-					<Link
-						href="/"
-						legacyBehavior
-						passHref
+					<NavigationMenuLink
+						className={navigationMenuTriggerStyle()}
 					>
-						<NavigationMenuLink
-							className={navigationMenuTriggerStyle()}
-						>
-							Contact Us
-						</NavigationMenuLink>
-					</Link>
+						Contributors
+					</NavigationMenuLink>
 				</NavigationMenuItem>
 			</NavigationMenuList>
 		</NavigationMenu>

@@ -23,10 +23,8 @@ export function useCalculateGPA() {
 		fetcher
 	);
 
-	console.log(data);
-
 	return {
-		gpa: data?.payload,
+		gpa: data?.payload || [],
 		isLoading: !error && !data,
 		isError: error,
 	};

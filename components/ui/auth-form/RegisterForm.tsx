@@ -47,12 +47,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 	const [submitting, setSubmitting] = React.useState(false);
 	const [submissionError, setSubmissionError] = React.useState("");
 
-	const [showPassword, setShowPassword] = React.useState(false);
-
-	const togglePasswordVisibility = () => {
-		setShowPassword((prev) => !prev);
-	};
-
 	const onSubmit = async (values: z.infer<typeof registerSchema>) => {
 		setSubmitting(true);
 		setSubmissionError("");
@@ -149,11 +143,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 									</FormLabel>
 									<FormControl>
 										<Input
-											type={
-												showPassword
-													? "text"
-													: "password"
-											}
+											type="password"
 											id="password"
 											className="col-span-3 pr-10"
 											{...field}

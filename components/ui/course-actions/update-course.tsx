@@ -39,7 +39,11 @@ const UpdateCourse: React.FC<UpdateCourseProps> = ({ course }) => {
 	const [submitting, setSubmitting] = useState(false);
 	const [submissionError, setSubmissionError] = useState("");
 
-	console.log(course);
+	const [isOpen, setIsOpen] = React.useState(false);
+
+	const handleClose = () => {
+		setIsOpen(false);
+	};
 
 	// form's schema
 	const courseSchema = z.object({
@@ -59,19 +63,23 @@ const UpdateCourse: React.FC<UpdateCourseProps> = ({ course }) => {
 
 		try {
 			await updateCourse(course._id, values.title);
-
+			form.reset();
 			console.log("Form data sent successfully!", values);
 		} catch (error: any) {
 			setSubmissionError(error.message);
 			console.error("Form submission error:", error);
 		} finally {
 			setSubmitting(false);
+			handleClose();
 		}
 	};
 
 	return (
 		<>
-			<Dialog>
+			<Dialog
+				open={isOpen}
+				onOpenChange={(open) => setIsOpen(open)}
+			>
 				<DialogTrigger>
 					<Button variant="outline">
 						<Pencil className="h-4 w-4" />

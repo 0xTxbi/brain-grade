@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import axios, { AxiosInstance } from "axios";
 import { getCookie } from "cookies-next";
 
@@ -25,10 +25,19 @@ export function useGetCourses() {
 	const url = `${process.env.NEXT_PUBLIC_API_URL}/cgpa-calculator/courses`;
 	const { data, error, isValidating } = useSWR(url, fetcher);
 
+	const refreshData = async () => {
+		try {
+			await mutate(url, fetcher(url));
+		} catch (error) {
+			console.error("Failed to refresh data:", error);
+		}
+	};
+
 	return {
 		courses: data?.payload?.data || [],
 		isLoading: !error && !data,
 		isError: error,
 		isValidating,
+		refreshData,
 	};
 }
