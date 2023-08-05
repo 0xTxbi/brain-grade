@@ -1,7 +1,6 @@
 import axios from "axios";
-import { deleteCookie, setCookie } from "cookies-next";
+import { setCookie } from "cookies-next";
 import { getCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
 
 // Register new user
 export async function registerUser(data: any) {
