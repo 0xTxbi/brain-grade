@@ -1,6 +1,7 @@
 import axios from "axios";
-import { setCookie } from "cookies-next";
+import { deleteCookie, setCookie } from "cookies-next";
 import { getCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 // Register new user
 export async function registerUser(data: any) {
@@ -38,6 +39,11 @@ export async function authenticateUser(data: any) {
 		console.error("Login error:", error);
 		throw new Error("Failed to create user");
 	}
+}
+
+// Log user out
+export function logoutUser() {
+	deleteCookie("userToken");
 }
 
 // Add Courses

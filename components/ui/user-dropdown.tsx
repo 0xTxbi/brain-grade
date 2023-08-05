@@ -28,13 +28,22 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
+import { logoutUser } from "@/lib/requests";
 
 interface UserDropDownProps {
 	avatarSrc: string;
 }
 
-const UserDropDown: React.FC<UserDropDownProps> = ({ avatarSrc }) => {
+const UserDropDown: React.FC<UserDropDownProps> = () => {
 	const { setTheme } = useTheme();
+
+	const router = useRouter();
+
+	const handleLogout = () => {
+		logoutUser();
+		router.push("/");
+	};
 
 	return (
 		<DropdownMenu>
@@ -50,18 +59,11 @@ const UserDropDown: React.FC<UserDropDownProps> = ({ avatarSrc }) => {
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
-					<DropdownMenuItem>
+					<DropdownMenuItem disabled>
 						<User className="mr-2 h-4 w-4" />
 						<span>Profile</span>
 						<DropdownMenuShortcut>
 							⇧⌘P
-						</DropdownMenuShortcut>
-					</DropdownMenuItem>
-					<DropdownMenuItem>
-						<Settings className="mr-2 h-4 w-4" />
-						<span>Settings</span>
-						<DropdownMenuShortcut>
-							⌘S
 						</DropdownMenuShortcut>
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
@@ -124,7 +126,7 @@ const UserDropDown: React.FC<UserDropDownProps> = ({ avatarSrc }) => {
 					</DropdownMenuSub>
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>
+				<DropdownMenuItem onClick={handleLogout}>
 					<LogOut className="mr-2 h-4 w-4" />
 					<span>Log out</span>
 					<DropdownMenuShortcut>

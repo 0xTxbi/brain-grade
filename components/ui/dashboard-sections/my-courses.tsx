@@ -69,7 +69,7 @@ const Courses: React.FC = () => {
 	return (
 		<>
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-				<Card className="col-span-4 overflow-scroll">
+				<Card className="col-span-4 md:col-span-3 overflow-scroll">
 					<CardHeader>
 						<CardTitle>
 							Your Courses
@@ -88,7 +88,9 @@ const Courses: React.FC = () => {
 						)}
 					</CardContent>
 				</Card>
-				<AddCourse />
+				<Card className="col-span-4 md:col-span-1 overflow-scroll max-h-[200px]">
+					<AddCourse />
+				</Card>
 			</div>
 		</>
 	);

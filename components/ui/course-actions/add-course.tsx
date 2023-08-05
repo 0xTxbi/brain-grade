@@ -118,7 +118,7 @@ const AddCourse: React.FC = () => {
 			onOpenChange={(open) => setIsOpen(open)}
 		>
 			<DialogTrigger asChild>
-				<Card className="col-span-3 cursor-pointer max-h-[200px]">
+				<Card className="col-span-4 border-0 md:col-span-2 cursor-pointer">
 					<CardHeader>
 						<CardTitle>
 							Add Course

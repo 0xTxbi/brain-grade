@@ -49,6 +49,9 @@ const Overview: React.FC<OverviewProps> = ({
 					</CardHeader>
 					<CardContent>
 						<div className="text-2xl font-bold">
+							{cgpa === null
+								? "you haven't calculated yet"
+								: cgpa}
 							{cgpa}
 						</div>
 					</CardContent>
