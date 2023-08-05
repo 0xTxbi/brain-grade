@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/typography/heading";
+import { hasCookie } from "cookies-next";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
+	const cookieExists = hasCookie("userToken");
+	console.log(cookieExists);
 	return (
 		<main className="flex h-screen flex-col items-center justify-between p-24">
 			<Heading level={2}>BrainGrade</Heading>
@@ -32,9 +36,9 @@ export default function Home() {
 				prowess.
 			</p>
 
-			<a href="/auth">
+			<Link href="/auth">
 				<Button>Get Started</Button>
-			</a>
+			</Link>
 		</main>
 	);
 }

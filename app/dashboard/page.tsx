@@ -1,4 +1,5 @@
 "use client";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Heading } from "@/components/ui/typography/heading";
 import UserDropDown from "@/components/ui/user-dropdown";
@@ -9,8 +10,9 @@ import { useCurrentUser } from "@/lib/hooks/useCurrentUser";
 import { useCalculateGPA } from "@/lib/hooks/useCalculateGPA";
 import { Contributors } from "@/components/ui/contributors";
 import { Toaster } from "@/components/ui/toaster";
+import withAuth from "@/components/withAuth";
 
-export default function DashboardPage() {
+const DashboardPage = () => {
 	const { user, isLoading, isError } = useCurrentUser();
 	const { gpa } = useCalculateGPA();
 
@@ -89,4 +91,6 @@ export default function DashboardPage() {
 			<Contributors />
 		</>
 	);
-}
+};
+
+export default withAuth(DashboardPage);

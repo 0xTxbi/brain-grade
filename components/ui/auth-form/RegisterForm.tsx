@@ -71,6 +71,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ className, ...props }) => {
 			// login user upon successful registration
 			if (response.status_code === 200) {
 				await authenticateUser(loginValues);
+				toast({
+					title: "Account Created",
+					description: "welcome to BrainGrade",
+				});
 				router.push("/dashboard");
 			} else {
 				console.log("Registration failed.");
