@@ -41,11 +41,6 @@ export async function authenticateUser(data: any) {
 	}
 }
 
-// Log user out
-export function logoutUser() {
-	deleteCookie("userToken");
-}
-
 // Add Courses
 export async function addCourse(data: any) {
 	const url = `${process.env.NEXT_PUBLIC_API_URL}/cgpa-calculator/courses/new`;

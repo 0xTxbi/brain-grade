@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import {
 	DropdownMenu,
@@ -16,20 +15,12 @@ import {
 	DropdownMenuShortcut,
 } from "@/components/ui/dropdown-menu";
 
-import {
-	User,
-	Settings,
-	PlusCircle,
-	LogOut,
-	Moon,
-	Sun,
-	Tv2,
-} from "lucide-react";
+import { User, PlusCircle, LogOut, Moon, Sun, Tv2 } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
-import { logoutUser } from "@/lib/requests";
+import { deleteCookie } from "cookies-next";
 
 interface UserDropDownProps {
 	avatarSrc: string;
@@ -41,7 +32,7 @@ const UserDropDown: React.FC<UserDropDownProps> = () => {
 	const router = useRouter();
 
 	const handleLogout = () => {
-		logoutUser();
+		deleteCookie("userToken");
 		router.push("/");
 	};
 
