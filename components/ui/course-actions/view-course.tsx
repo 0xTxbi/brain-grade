@@ -15,6 +15,7 @@ import { Eye } from "lucide-react";
 import { Courses } from "../table/columns";
 import { Heading } from "../typography/heading";
 import { useGetCourseDetail } from "@/lib/hooks/useGetCourseDetail";
+import { ScrollArea } from "../scroll-area";
 
 interface ViewCourseProps {
 	course: Courses;
@@ -38,58 +39,64 @@ const ViewCourse: React.FC<ViewCourseProps> = ({ course }) => {
 						Course Detail
 					</DialogHeader>
 
-					<div>
-						<div className="space-y-1">
-							<h4 className="text-sm font-medium leading-none">
-								Course Title
-							</h4>
-							<p className="text-sm text-muted-foreground">
-								{
-									courseDetail.title
-								}
-							</p>
+					<ScrollArea className="w-full">
+						<div>
+							<div className="space-y-1 ">
+								<h4 className="text-sm font-medium leading-none">
+									Title
+								</h4>
+								<p className="text-sm text-muted-foreground">
+									{
+										courseDetail.title
+									}
+								</p>
+							</div>
+							<Separator className="my-4" />
+							<div className="space-y-1 ">
+								<h4 className="text-sm font-medium leading-none">
+									Code
+								</h4>
+								<p className="text-sm text-muted-foreground">
+									{
+										courseDetail.code
+									}
+								</p>
+							</div>
+							<Separator className="my-4" />
+							<div className="space-y-1 ">
+								<h4 className="text-sm font-medium leading-none">
+									Grade
+								</h4>
+								<p className="text-sm text-muted-foreground">
+									{
+										courseDetail.grade
+									}
+								</p>
+							</div>
+							<Separator className="my-4" />
+							<div className="space-y-1 ">
+								<h4 className="text-sm font-medium leading-none">
+									Grade
+								</h4>
+								<p className="text-sm text-muted-foreground">
+									{
+										courseDetail.unit_credit
+									}
+								</p>
+							</div>
+							<Separator className="my-4" />
+							<div className="space-y-1 ">
+								<h4 className="text-sm font-medium leading-none">
+									Grade
+								</h4>
+								<p className="text-sm text-muted-foreground">
+									{
+										courseDetail.year
+									}
+								</p>
+							</div>
 						</div>
-						<Separator className="my-4" />
-						<div className="flex h-5 items-center space-x-4 text-sm">
-							<div className="text-muted-foreground">
-								Code
-							</div>
-							<Separator orientation="vertical" />
-							<div>
-								{
-									courseDetail.code
-								}
-							</div>
-							<Separator orientation="vertical" />
-							<div className="text-muted-foreground">
-								Grade
-							</div>
-							<Separator orientation="vertical" />
-							<div>
-								{
-									courseDetail.grade
-								}
-							</div>
-							<div className="text-muted-foreground">
-								Units
-							</div>
-							<Separator orientation="vertical" />
-							<div>
-								{
-									courseDetail.unit_credit
-								}
-							</div>
-							<div className="text-muted-foreground">
-								Level
-							</div>
-							<Separator orientation="vertical" />
-							<div>
-								{
-									courseDetail.year
-								}
-							</div>
-						</div>
-					</div>
+					</ScrollArea>
 				</DialogContent>
 			</Dialog>
 		</>

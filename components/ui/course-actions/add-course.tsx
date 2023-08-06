@@ -46,6 +46,7 @@ import { LoaderIcon } from "lucide-react";
 import { addCourse } from "@/lib/requests";
 import { rawCourses } from "@/lib/utils";
 import { useGetCourses } from "@/lib/hooks/useGetCourses";
+import { ScrollArea } from "../scroll-area";
 
 const AddCourse: React.FC = () => {
 	// get course refresh function
@@ -136,220 +137,229 @@ const AddCourse: React.FC = () => {
 				</Card>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[625px]">
-				<Form {...form}>
-					<form
-						onSubmit={form.handleSubmit(
-							onSubmit
-						)}
-						className="space-y-8"
-					>
-						<DialogHeader>
-							<DialogTitle>
-								Add a Course
-							</DialogTitle>
-							<DialogDescription>
-								Easily add a new
-								course to the
-								current semester
-								by providing the
-								following
-								details:
-							</DialogDescription>
-						</DialogHeader>
-						<div className="grid gap-4 py-4">
-							{/* Course code */}
-							<FormField
-								control={
-									form.control
-								}
-								name="code"
-								render={({
-									field,
-								}) => (
-									<FormItem>
-										<FormLabel>
-											Course
-											Code
-										</FormLabel>
-										<FormControl>
-											<Input
-												id="name"
-												placeholder="CSC 111"
-												className="col-span-3"
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
-							{/* Title */}
-							<FormField
-								control={
-									form.control
-								}
-								name="title"
-								render={({
-									field,
-								}) => (
-									<FormItem>
-										<FormLabel>
-											Title
-										</FormLabel>
-										<FormControl>
-											<Input
-												id="name"
-												placeholder="Introduction to Computer Science"
-												className="col-span-3"
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
-							{/* Grade */}
-							<FormField
-								control={
-									form.control
-								}
-								name="grade"
-								render={({
-									field,
-								}) => (
-									<FormItem>
-										<FormLabel>
-											Grade
-										</FormLabel>
-										<FormControl>
-											<Input
-												type="number"
-												id="grade"
-												className="col-span-3"
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
-							{/* Units */}
-							<FormField
-								control={
-									form.control
-								}
-								name="unit_credit"
-								render={({
-									field,
-								}) => (
-									<FormItem>
-										<FormLabel>
-											Units
-										</FormLabel>
-										<FormControl>
-											<Input
-												type="number"
-												id="units"
-												placeholder="3"
-												className="col-span-3"
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
-							{/* Year */}
-							<FormField
-								control={
-									form.control
-								}
-								name="year"
-								render={({
-									field,
-								}) => (
-									<FormItem>
-										<FormLabel>
-											Year
-										</FormLabel>
-										<FormControl>
-											<Input
-												type="number"
-												id="year"
-												placeholder="1"
-												className="col-span-3"
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
-							{/* Semester */}
-							<FormField
-								control={
-									form.control
-								}
-								name="semester"
-								render={({
-									field,
-								}) => (
-									<FormItem>
-										<FormLabel>
-											Semester
-										</FormLabel>
-										<Select
-											onValueChange={
-												field.onChange
-											}
-										>
+				<ScrollArea className="sm:h-[60vh]">
+					<Form {...form}>
+						<form
+							onSubmit={form.handleSubmit(
+								onSubmit
+							)}
+							className="space-y-8"
+						>
+							<DialogHeader>
+								<DialogTitle>
+									Add a
+									Course
+								</DialogTitle>
+								<DialogDescription>
+									Easily
+									add a
+									new
+									course
+									to the
+									current
+									semester
+									by
+									providing
+									the
+									following
+									details:
+								</DialogDescription>
+							</DialogHeader>
+							<div className="grid gap-4 py-4">
+								{/* Course code */}
+								<FormField
+									control={
+										form.control
+									}
+									name="code"
+									render={({
+										field,
+									}) => (
+										<FormItem>
+											<FormLabel>
+												Course
+												Code
+											</FormLabel>
 											<FormControl>
-												<SelectTrigger>
-													<SelectValue placeholder="Select semester" />
-												</SelectTrigger>
+												<Input
+													id="name"
+													placeholder="CSC 111"
+													className="col-span-3"
+													{...field}
+												/>
 											</FormControl>
-											<SelectContent>
-												<SelectItem value="1">
-													Rain
-												</SelectItem>
-												<SelectItem value="2">
-													Harmattan
-												</SelectItem>
-											</SelectContent>
-										</Select>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<DialogFooter>
-							<Button
-								type="submit"
-								disabled={
-									submitting
-								}
-							>
-								{submitting ? (
-									<>
-										<LoaderIcon className="mr-2 h-4 w-4" />
-										Adding
-										Course
-									</>
-								) : (
-									<>
-										Add
-										Course
-									</>
-								)}
-							</Button>
-						</DialogFooter>
-					</form>
-				</Form>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								{/* Title */}
+								<FormField
+									control={
+										form.control
+									}
+									name="title"
+									render={({
+										field,
+									}) => (
+										<FormItem>
+											<FormLabel>
+												Title
+											</FormLabel>
+											<FormControl>
+												<Input
+													id="name"
+													placeholder="Introduction to Computer Science"
+													className="col-span-3"
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								{/* Grade */}
+								<FormField
+									control={
+										form.control
+									}
+									name="grade"
+									render={({
+										field,
+									}) => (
+										<FormItem>
+											<FormLabel>
+												Grade
+											</FormLabel>
+											<FormControl>
+												<Input
+													type="number"
+													id="grade"
+													className="col-span-3"
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								{/* Units */}
+								<FormField
+									control={
+										form.control
+									}
+									name="unit_credit"
+									render={({
+										field,
+									}) => (
+										<FormItem>
+											<FormLabel>
+												Units
+											</FormLabel>
+											<FormControl>
+												<Input
+													type="number"
+													id="units"
+													placeholder="3"
+													className="col-span-3"
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								{/* Year */}
+								<FormField
+									control={
+										form.control
+									}
+									name="year"
+									render={({
+										field,
+									}) => (
+										<FormItem>
+											<FormLabel>
+												Year
+											</FormLabel>
+											<FormControl>
+												<Input
+													type="number"
+													id="year"
+													placeholder="1"
+													className="col-span-3"
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								{/* Semester */}
+								<FormField
+									control={
+										form.control
+									}
+									name="semester"
+									render={({
+										field,
+									}) => (
+										<FormItem>
+											<FormLabel>
+												Semester
+											</FormLabel>
+											<Select
+												onValueChange={
+													field.onChange
+												}
+											>
+												<FormControl>
+													<SelectTrigger>
+														<SelectValue placeholder="Select semester" />
+													</SelectTrigger>
+												</FormControl>
+												<SelectContent>
+													<SelectItem value="1">
+														Rain
+													</SelectItem>
+													<SelectItem value="2">
+														Harmattan
+													</SelectItem>
+												</SelectContent>
+											</Select>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</div>
+							<DialogFooter>
+								<Button
+									type="submit"
+									disabled={
+										submitting
+									}
+								>
+									{submitting ? (
+										<>
+											<LoaderIcon className="mr-2 h-4 w-4" />
+											Adding
+											Course
+										</>
+									) : (
+										<>
+											Add
+											Course
+										</>
+									)}
+								</Button>
+							</DialogFooter>
+						</form>
+					</Form>
+				</ScrollArea>
 			</DialogContent>
 		</Dialog>
 	);
