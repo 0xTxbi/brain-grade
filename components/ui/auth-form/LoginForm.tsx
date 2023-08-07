@@ -70,7 +70,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ className, ...props }) => {
 			const response = await authenticateUser(parsedValues);
 
 			if (response.status_code === 200) {
-				await authenticateUser(parsedValues);
 				toast({
 					title: "Authenticated",
 					description:
